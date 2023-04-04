@@ -13,16 +13,16 @@ export const sphereVisualizer = function (scene, camera, renderer, dataArray, an
      const textureLoader = new THREE.TextureLoader();
 
      const materials = [
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_saturn.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_earth_daymap.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_jupiter.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_venus_surface.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_neptune.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_mars.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_sun.jpg')}),
-      new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_moon.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_mercury.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_uranus.jpg')}), 
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_saturn.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_earth_daymap.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_jupiter.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_venus_surface.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_neptune.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_mars.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_sun.jpg')}),
+      new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_moon.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_mercury.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_uranus.jpg')}), 
      ]
 
      ///// spheres /////
@@ -71,7 +71,7 @@ export const sphereVisualizer = function (scene, camera, renderer, dataArray, an
      const icosaGeo = new THREE.IcosahedronGeometry(5, 0);
      const icosaMat = new THREE.MeshPhongMaterial({
           color: 0xffffff,
-          map:textureLoader.load('./assets/2k_sun.jpg'),
+          map:textureLoader.load('./assets/textures/2k_sun.jpg'),
      })
      const icosahedron = new THREE.Mesh(icosaGeo, icosaMat);
      scene.add(icosahedron);
