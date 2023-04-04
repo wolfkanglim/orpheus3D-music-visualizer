@@ -13,13 +13,13 @@ export const cubeVisualizer = function (scene, camera, renderer, dataArray, anal
      const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 
      const materials = [
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_saturn.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_earth_daymap.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_jupiter.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_venus_surface.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_neptune.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_mars.jpg')}),
-     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/2k_sun.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_saturn.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_earth_daymap.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_jupiter.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_venus_surface.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_neptune.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_mars.jpg')}),
+     new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_sun.jpg')}),
      ]
 
      ///// cubes /////
@@ -49,7 +49,7 @@ export const cubeVisualizer = function (scene, camera, renderer, dataArray, anal
      const icosaGeo = new THREE.IcosahedronGeometry(5, 0);
      const icosaMat = new THREE.MeshPhongMaterial({
           color: 0xffffff,
-          map:textureLoader.load('./assets/2k_sun.jpg'),
+          map:textureLoader.load('./assets/textures/2k_sun.jpg'),
      })
      const icosahedron = new THREE.Mesh(icosaGeo, icosaMat);
      scene.add(icosahedron);
