@@ -24,7 +24,7 @@ export const planeVisualizer = function (scene, camera, renderer, dataArray, ana
      };
 
      // icosahedron
-     const texture = new THREE.TextureLoader().load('./assets/2k_sun.jpg');
+     const texture = new THREE.TextureLoader().load('./assets/textures/2k_sun.jpg');
      const geo = new THREE.IcosahedronGeometry(10,0);
      const mat = new THREE.MeshPhongMaterial({
           wireframe: false,
