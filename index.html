@@ -11,64 +11,69 @@
      <link rel="shortcut icon" href="#">
 </head>
 <body>
-<div class="wrapper">
-     <div class="title header">
-          <image id="logo" src="./assets/textures/taeguk2.png"></image>
-          <h1>Orpheus 3D <span id="small"> Create Unique Music Video</span></h1>
-          <image id="logo" src="./assets/textures/wolfkangicon.jpg"></image>
-     </div>
-     <div class="gui">
-          <h3>GUI Control panel</h3>
-     </div>
-     <div class="main-container">
-          <canvas id="canvas1"></canvas>
-     </div>
-     <div class="info control-container">
-          <label for="imageFile">Upload Background Image</label>
-          <input type="file"  multiple id="imageFile" name="imageFile" accept="image/png, image/jpeg">
-          <!--img id="preview">preview</img-->
-
+     <div class="wrapper">
+          <div class="title header">
+               <image id="logo" src="./assets/textures/taeguk2.png"></image>
+               <h1>Orpheus 3D <span id="small"> Create Unique Music Video</span></h1>
+               <p>enjoy it!<br> play it!<br> share it!</p>
           
-          <div class="waveform"></div>
-          <button id="current-time">00:00</button>
-          <button id="duration-time">00:00</button>
-     </div>
-     
-     <div class="music-container">  
-          <label for="file_upload">Upload Music File</label>       
-          <input type="file" id="file_upload" accept="audio/*">
-          <audio id="audio1"  src="./assets/audios/trumpetintro.mp3" >
-          </audio>
-          <div class="control-buttons">
-               <button class="btn"  id="stopBtn"><i class="fas fa-stop"></i></button>
-               <button class="btn"  id="playBtn"><i class="fas fa-play"></i></button>
-               <button class="btn"  id="pauseBtn"><i class="fas fa-pause"></i></button>
           </div>
-          <div class="record-buttons">
-               <button class="record-btn" id="recordBtn">START Record</button>
-               <button class="record-btn" id="stopRecordBtn">STOP Record</button>
+          <div class="gui">
+               <h6>GUI Control panel</h6>
           </div>
-     </div>    
-     
-     <div class="footer">
-          <button id="sphere_btn">Sphere Vis</button>
-          <button id="cube_btn">Cube Vis</button>
-          <button id="plane_btn">Plane Vis</button>
-          <p>Turn your favorite songs into fantastic and unique music videos and enjoy it, play it, share it.
-               Make one of kind your own music video. Add images and control visualizer. ...</p>
-     </div>     
-</div> 
-<button id="modal_btn">Open Info Modal</button>    
-<div class="modal" id="info_modal">
-     
-     <h3><span id="close">&times;</span></h3>
-     <div class="modal-header">
-
+          <div class="main-container">
+               <canvas id="canvas1"></canvas>
+          </div>
+          <div class="info control-container">
+               <label for="imageFile">Upload Background Image</label>
+               <input type="file"  multiple id="imageFile" name="imageFile" accept="image/png, image/jpeg">
+               <p>FLY Controls</p>
+               <p>WASD move, R up, F down, QE roll, up/down pitch, left/right yaw</p>
+               
+               <div class="waveform"></div>
+               <button id="current-time">00:00</button>
+               <button id="duration-time">00:00</button>
+          </div>
+          
+          <div class="music-container">  
+               <label for="file_upload">Upload Music File</label>       
+               <input type="file" id="file_upload" accept="audio/*">
+               <audio id="audio1"  src="./assets/audios/trumpetintro.mp3" >
+               </audio>
+               <div class="control-buttons">
+                    <button class="btn"  id="stopBtn"><i class="fas fa-stop"></i></button>
+                    <button class="btn"  id="playBtn"><i class="fas fa-play"></i></button>
+                    <button class="btn"  id="pauseBtn"><i class="fas fa-pause"></i></button>
+               </div>
+               <div class="record-buttons">
+                    <button class="record-btn" id="recordBtn">START Record</button>
+                    <button class="record-btn" id="stopRecordBtn">STOP Record</button>
+               </div>
+               <image id="wolf" src="./assets/textures/wolfkangicon.jpg"></image>
+               <p>WONDROUS EAST wolfkang</p>
+          </div>    
+          
+          <div class="footer">
+               <button class="select-btn" id="sphere_btn">Sphere Vis</button>
+               <button class="select-btn" id="cube_btn">Cube Vis</button>
+               <button class="select-btn" id="plane_btn">Plane Vis</button>
+               <p>Use keyboards to Fly Controls navigation<b>
+                    
+          WASD move, R up, F down, QE roll, up/down pitch, left/right yaw<br>
+               
+                    Make one of kind your own music video. Add images and control visualizer. ...</p>
+          </div>     >     
+     </div> 
+     <button id="modal_btn">Open Info Modal</button>    
+     <div class="modal" id="info_modal">
+          
+          <h3><span id="close">&times;</span></h3>
+          <div class="modal-header">
                <h2>How To Create 3D Music Video</h2>     
           </div>
           <div class="modal-body">
-              <p>Click Choose file to upload music</p>
-              <p>Select Visualizer Icon </p>
+               <p>Click Choose file to upload music</p>
+               <p>Select Visualizer Icon </p>
                <p>Click Play to start music</p>
                <p>Use mouse on the screen or use QWRTASDF keyboards to camera movements</p>
                <p>Or select programmed camera movement. Try Picture in Picture camera</p>
@@ -83,9 +88,9 @@
           <div class="modal-footer">
                <p>So simple and easy</p>
           </div>               
-     
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js" integrity="sha512-mhqErQ0f2UqnbsjgKpM96XfxVjVMnXpszEXKmnJk8467vR8h0MpiPauil8TKi5F5DldQGqNUO/XTyWbQku22LQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     </div>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js" integrity="sha512-mhqErQ0f2UqnbsjgKpM96XfxVjVMnXpszEXKmnJk8467vR8h0MpiPauil8TKi5F5DldQGqNUO/XTyWbQku22LQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
      <script type="module" src="./main.js"></script>

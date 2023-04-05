@@ -5,8 +5,6 @@ import {sphereVisualizer} from './sphereVisualizer.js';
 import { planeVisualizer } from './planeVisualizer.js';
 import {cubeVisualizer} from './cubeVisualizer.js';
 
-//import shaders from './shaders.js';
-
 
 const canvas = document.getElementById('canvas1');
 
@@ -22,24 +20,22 @@ function fitToContainer(canvas){
   canvas.height = canvas.offsetHeight;
 };
 
-
 ///// audio setup /////
 let analyser;
 let dataArray = [];
 
 function fileUpload(){
      const file = document.getElementById('file_upload');
-file.addEventListener('change', function(){
-     const files = this.files;
-     audio1.src = URL.createObjectURL(files[0]);
-     audio1.load();
-
-});
+     file.addEventListener('change', function(){
+          const files = this.files;
+          audio1.src = URL.createObjectURL(files[0]);
+          audio1.load();
+     });
 }
 
 fileUpload();
 
- async function audioVisualizer(){
+async function audioVisualizer(){
      const audioTrack = WaveSurfer.create({
           container: '.waveform',
           waveColor: '#777',
@@ -48,95 +44,89 @@ fileUpload();
           barHeight: 0.4,
      });
 
+     let audioSource;
+     const audioElement = document.getElementById('audio1');
 
-let audioSource;
-const audioElement = document.getElementById('audio1');
+     let url = audioElement.src;
+     //audioTrack.load(url);
+     console.log(url);
 
-let url = audioElement.src;
-//audioTrack.load(url);
-console.log(url);
+     const audioCtx = new AudioContext();
+     analyser = audioCtx.createAnalyser();
+     audioSource = audioCtx.createMediaElementSource(audioElement);
+     audioSource.connect(analyser);
+     analyser.connect(audioCtx.destination);
+     analyser.fftSize = 512;
+     let bufferLength = analyser.frequencyBinCount;
+     dataArray = new Uint8Array(bufferLength);
 
-const audioCtx = new AudioContext();
-analyser = audioCtx.createAnalyser();
-audioSource = audioCtx.createMediaElementSource(audioElement);
-audioSource.connect(analyser);
-analyser.connect(audioCtx.destination);
-analyser.fftSize = 512;
-let bufferLength = analyser.frequencyBinCount;
-dataArray = new Uint8Array(bufferLength);
+     const playBtn = document.getElementById('playBtn');
+     const stopBtn = document.getElementById('stopBtn');
+     const pauseBtn = document.getElementById('pauseBtn');
 
+     playBtn.addEventListener('click', function(e){     
+          e.preventDefault();
+          audioElement.play();
+          audioTrack.play();
+     })
+     stopBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          audioElement.pause();
+     })
+     pauseBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          audioElement.pause();
+     })
 
+     ///// video recording ////////
+     const recordBtn = document.getElementById('recordBtn');
+     const stopRecordBtn = document.getElementById('stopRecordBtn');
+     let recording = false;
+     let mediaRecorder;
+     let recordedChunks = [];
 
-
-
-
-const playBtn = document.getElementById('playBtn');
-const stopBtn = document.getElementById('stopBtn');
-const pauseBtn = document.getElementById('pauseBtn');
-
-playBtn.addEventListener('click', function(e){     
-     e.preventDefault();
-     audioElement.play();
-     audioTrack.play();
-})
-stopBtn.addEventListener('click', (e) => {
-     e.preventDefault();
-     audioElement.pause();
-})
-pauseBtn.addEventListener('click', (e) => {
-     e.preventDefault();
-     audioElement.pause();
-})
-
-///// video recording ////////
-const recordBtn = document.getElementById('recordBtn');
-const stopRecordBtn = document.getElementById('stopRecordBtn');
-let recording = false;
-let mediaRecorder;
-let recordedChunks = [];
-
-recordBtn.addEventListener('click', (e) => {
-     e.preventDefault();
-     let dest = audioCtx.createMediaStreamDestination();
-     audioSource.connect(dest);
-     let audioTrack = dest.stream.getAudioTracks()[0];
-     recording = !recording;
-     if(recording){
-          recordBtn.innerText = "recordings...";
-          const canvasStream = canvas.captureStream(60);
-          mediaRecorder = new MediaRecorder(canvasStream, {
-               mimeType: 'video/webm;codecs=vp9'
-          })
-          canvasStream.addTrack(audioTrack);
-          mediaRecorder.ondataavailable = e => {
-               if(e.data.size > 0){
-                    recordedChunks.push(e.data);
+     recordBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          let dest = audioCtx.createMediaStreamDestination();
+          audioSource.connect(dest);
+          let audioTrack = dest.stream.getAudioTracks()[0];
+          recording = !recording;
+          if(recording){
+               recordBtn.innerText = "recordings...";
+               const canvasStream = canvas.captureStream(60);
+               mediaRecorder = new MediaRecorder(canvasStream, {
+                    mimeType: 'video/webm;codecs=vp9'
+               })
+               canvasStream.addTrack(audioTrack);
+               mediaRecorder.ondataavailable = e => {
+                    if(e.data.size > 0){
+                         recordedChunks.push(e.data);
+                    }
                }
+               mediaRecorder.start();
           }
-          mediaRecorder.start();
-     }
-});
+     });
 
-stopRecordBtn.addEventListener('click', (e) => {
-     e.preventDefault();
-     recordBtn.innerText = "Start Record";
-     mediaRecorder.stop();
-     setTimeout((e) => {
-          const blob = new Blob(recordedChunks, {
-               type: 'video/webm'
-          })
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'recording.webm';
-          a.click();
-          url.revokeObjectURL(url);
-     }, 100);
-});
-
+     stopRecordBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          recordBtn.innerText = "Start Record";
+          mediaRecorder.stop();
+          setTimeout((e) => {
+               const blob = new Blob(recordedChunks, {
+                    type: 'video/webm'
+               })
+               const url = URL.createObjectURL(blob);
+               const a = document.createElement('a');
+               a.href = url;
+               a.download = 'recording.webm';
+               a.click();
+               url.revokeObjectURL(url);
+          }, 100);
+     });
 }
 
 audioVisualizer();
+
 //////// THREE //////////////////////////
 
 let scene, camera, renderer;
@@ -147,8 +137,7 @@ initThree();
 
 function initThree(){
      scene = new THREE.Scene();
-     scene.background = new THREE.Color(0x111111);
-     camera = new THREE.PerspectiveCamera(
+     scene.background = new THREE.TextureLoader().load('./assets/textures/space-background.jpg');     camera = new THREE.PerspectiveCamera(
      75,
      canvas.width / canvas.height,
      0.1,
@@ -161,7 +150,6 @@ function initThree(){
           canvas: canvas,
           antialias: true
      })
-     //renderer.setClearColor(0x000000, 1.0);
      renderer.setSize(canvas.width, canvas.height);
 
      //orbitCamera = new OrbitControls(camera, canvas);
@@ -170,7 +158,6 @@ function initThree(){
      //flyCamera.rollSpeed = Math.PI / 24;
      flyCamera.autoForward = false;
      flyCamera.dragToLook = true;
-
 
      ///// lights /////
      const ambientLight = new THREE.AmbientLight(0x555555, 1);
@@ -202,9 +189,9 @@ function visualizerSphere(){
      } else {
           sphereVisualizer(scene, camera, renderer, dataArray, analyser, flyCamera);
           isPlaying = true;
-
      }
 }
+
 function visualizerCube(){
      cubeVisualizer(scene, camera, renderer, dataArray, analyser, flyCamera);
 }
@@ -225,7 +212,7 @@ span.addEventListener('click', () => {
      console.log('Clink');
 })
 
-///////////////
+///// Modal //////////
 
 window.addEventListener('resize', function(){
      camera.aspect = canvas.width/canvas.height;
@@ -255,7 +242,6 @@ function selectBackgroundImg(){
                texture = new THREE.Texture(img);
                texture.needsUpdate = true;
                scene.background = texture;
-               //setBackground(texture);
           }, false);
           if(file){
                reader.readAsDataURL(file);
