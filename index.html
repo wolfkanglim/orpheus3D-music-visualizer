@@ -4,7 +4,7 @@
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>3D Music Visualizer Beatrice</title>
+     <title>Orpheus3D Music Visualizer</title>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js" integrity="sha512-WoO4Ih0CDOSLYafy22wZD/mcJ7k0ESLqtQsFa6zFKnEUrbtuGU+GkLtVhgt93xa2qewG5gKEC6CWlN8OaCTSVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
      <link rel="stylesheet" href="./style.css">
@@ -16,30 +16,53 @@
                <image id="logo" src="./assets/textures/taeguk2.png"></image>
                <h1>Orpheus 3D <span id="small"> Create Unique Music Video</span></h1>
                <p>enjoy it!<br> play it!<br> share it!</p>
-          
+               
           </div>
-          <div class="gui">
+          <div class="gui-container">
                <h6>GUI Control panel</h6>
           </div>
           <div class="main-container">
                <canvas id="canvas1"></canvas>
           </div>
           <div class="info control-container">
-               <label for="imageFile">Upload Background Image</label>
-               <input type="file"  multiple id="imageFile" name="imageFile" accept="image/png, image/jpeg">
-               <p>FLY Controls</p>
-               <p>WASD move, R up, F down, QE roll, up/down pitch, left/right yaw</p>
-               
-               <div class="waveform"></div>
-               <button id="current-time">00:00</button>
-               <button id="duration-time">00:00</button>
-          </div>
-          
-          <div class="music-container">  
                <label for="file_upload">Upload Music File</label>       
                <input type="file" id="file_upload" accept="audio/*">
-               <audio id="audio1"  src="./assets/audios/trumpetintro.mp3" >
+               
+               <audio id="audio1" src="./assets/audios/trumpetintro.mp3">
                </audio>
+              
+               <button class="bg_btn" id="bg_space">space Blue</button>
+               <button class="bg_btn" id="bg_galaxy">space Red</button>
+               <button class="bg_btn" id="bg_galaxy">space green</button>
+               <button class="bg_btn" id="bg_galaxy">space black</button>
+               <button class="bg_btn" id="bg_galaxy">city sky night</button>
+               <button class="bg_btn" id="bg_galaxy">mountain night</button>
+               <button class="bg_btn" id="bg_galaxy">desert night</button>
+               <button class="bg_btn" id="bg_galaxy">ocean sky</button>
+                        
+               
+              <!--  <p>FLY Controls</p>
+               <p>WASD move, R up, F down, QE roll, up/down pitch, left/right yaw</p> -->
+          </div>
+          
+          <div class="waveform-container">
+               <button class="select-btn" id="sphere_btn">Sphere Visualizer</button>
+               <button class="select-btn" id="cube_btn">Cube Visualizer</button>
+               <button class="select-btn" id="plane_btn">Plane Visualizer</button>
+               <button class="select-btn" id="double_btn">Double Visualizer</button>
+               <button class="select-btn" id="glsl_btn">GLSL Visualizer</button>
+               <button class="select-btn" id="icosa_btn">Icosa Visualizer</button>
+               <button class="select-btn" id="a_btn"> another Visualizer</button>
+               <button class="select-btn" id="ea_btn">More Coming</button>
+               <button class="select-btn" id="particles_btn">Star Particles</button>
+               <button class="select-btn" id="instances_btn">Objects Instances</button>
+               <button class="select-btn" id="waveform_btn"> Ocean Waveform</button>
+               <button class="select-btn" id="line_btn">Line FlowField</button>
+
+               
+          </div>
+
+          <div class="music-container">  
                <div class="control-buttons">
                     <button class="btn"  id="stopBtn"><i class="fas fa-stop"></i></button>
                     <button class="btn"  id="playBtn"><i class="fas fa-play"></i></button>
@@ -49,22 +72,21 @@
                     <button class="record-btn" id="recordBtn">START Record</button>
                     <button class="record-btn" id="stopRecordBtn">STOP Record</button>
                </div>
-               <image id="wolf" src="./assets/textures/wolfkangicon.jpg"></image>
+               <div class="company-logo">
+                    <image id="wolf" src="./assets/textures/wolfkangicon.jpg"></image>
                <p>WONDROUS EAST wolfkang</p>
+               </div>
+               
           </div>    
           
           <div class="footer">
-               <button class="select-btn" id="sphere_btn">Sphere Vis</button>
-               <button class="select-btn" id="cube_btn">Cube Vis</button>
-               <button class="select-btn" id="plane_btn">Plane Vis</button>
-               <p>Use keyboards to Fly Controls navigation<b>
-                    
-          WASD move, R up, F down, QE roll, up/down pitch, left/right yaw<br>
+              <canvas id="canvas2"></canvas>
+              
                
-                    Make one of kind your own music video. Add images and control visualizer. ...</p>
-          </div>     >     
+                   
+          </div>     
      </div> 
-     <button id="modal_btn">Open Info Modal</button>    
+     <button id="modal_btn">Open Info</button>    
      <div class="modal" id="info_modal">
           
           <h3><span id="close">&times;</span></h3>
@@ -75,27 +97,59 @@
                <p>Click Choose file to upload music</p>
                <p>Select Visualizer Icon </p>
                <p>Click Play to start music</p>
-               <p>Use mouse on the screen or use QWRTASDF keyboards to camera movements</p>
+               <p>Use keyboards to Fly Controls navigation</p>
+                    
+               <p>WASD move, R up, F down, QE roll, up/down pitch, left/right yaw</p>
+
                <p>Or select programmed camera movement. Try Picture in Picture camera</p>
-               <p>Clink Open Controls to control objects</p>
+               <p>Clink Open Controls to control object settings</p>
                <p>Watch enjoy 3D Music Visualization</p>
-               <h3>Yes you can make your own music video!</h3>
+               <h3>Yes you can make your own music video!  Make one of kind your own music video. Add images and control visualizer. ..</h3>
                <p>Clink Start Record when it is ready</p>
                <p>Clink Stop Record when it is done. Recorded mv file will be downloaded </p>
                <p>Recorded webm file will be downloaded </p>
-               <p>This is a test version. More to come...</p> 
+               <p>This is a test version 2.0 More to come...</p> 
           </div>
           <div class="modal-footer">
                <p>So simple and easy</p>
-          </div>               
+          </div>              
      </div>
 
      <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js" integrity="sha512-mhqErQ0f2UqnbsjgKpM96XfxVjVMnXpszEXKmnJk8467vR8h0MpiPauil8TKi5F5DldQGqNUO/XTyWbQku22LQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+     <script src='https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.3.0/simplex-noise.min.js'></script>
 
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
      <script type="module" src="./main.js"></script>
 </body>
 </html>
 
+<!-- 
+     Orpheus 3D Music Visualizer
+          Video recording 20230402 download webm file no play but convert mp4 file then play well. 
+          Add buttons for choose .js file
+          Slide-In info modal
+          background upload and apply
+          Add flyControl camera movements
+          Add waveform  wavesurfer.js
+          Add Picture in Picture 2nd 3rd cameras
+          Add Positional Audio
+          AI camera movement automatic camera moves randomly.
+          Add audio wave icon button GIF
+          GUI style
+          WebGL GLSL visualizer
+          simon music visualizer
+          Loading audio file from URL
+          Analyser Frequency Effects bass tre pitch average 
+          video file WEBM, make it to MP4 
+     Beatrice 3D Audio Visualizer
+      
 
-    
+     Music Video
+          Positional Audio
+          Effect volume control by the camera movements
+          each player(or instruments)
+          (ex:violin volume up when camera goes to near)  
+          Wandering around in the 3D world, every place has different music and play
+
+ -->
