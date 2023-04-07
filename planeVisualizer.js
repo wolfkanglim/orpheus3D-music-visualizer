@@ -1,7 +1,7 @@
 import * as THREE from './js/three.module.js';
 
-import shaders from './shadersPlane.js';
-import planeMeshParameters from './planeMeshParam.js';
+import shaders from './src/shadersPlane.js';
+import planeMeshParameters from './src/planeMeshParam.js';
 
 const gui = new dat.GUI();
 gui.domElement.id = 'gui';
