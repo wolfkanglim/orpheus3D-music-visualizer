@@ -24,19 +24,23 @@ body {
   grid-column: 1 / 4;
   grid-row: 1;
   display: flex;
-  background-color: darkblue;
-  justify-content: space-around;
+  background-color: #222;
+  justify-content:space-evenly;
   align-items: center;
   border: 1px solid rgb(254, 253, 253); 
 }
-.gui {
+.gui-container {
   position: relative;
   grid-column: 4 / 5;
   grid-row: 1 / 1;
+  width: 98%;
+  background-color: #222;
+  border: 1px solid white;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items:flex-start;
+  justify-content: flex-end;
 }
+
 h1 {
   text-align: center;
   color: rgb(249, 247, 247);
@@ -51,7 +55,7 @@ h1 {
   grid-row: 2 / 7;  
   background-color: #222;     
   border: 2px solid rgb(254, 253, 253); 
-  margin: 5px;
+  margin:  2px 4px;
 }
 
 #canvas1 {     
@@ -60,28 +64,55 @@ h1 {
   background-size: cover;
   top: 0;
   left: 0;
-  width: 100%;
-  
+  width: 100%;  
 }
 
 .control-container {
-  position: relative;
+  
   grid-column: 4;
   grid-row: 2 / 4;
-  background-color: rgb(244, 225, 225);
-  color: black;
-  padding: 6px;
-  margin: 6px;  
-  overflow: auto;
+  width: 98%;
+  background-color: #222;
+  border: 1px solid white;
+  color: white;
+  margin: 1px;  
+  padding: 6px; 
 }
+.bg_btn {
+  margin: 1px;
+  width: 23%;
+  background-color: burlywood;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+.waveform-container {
+  position: relative;
+  grid-column: 4;
+  grid-row: 4 / 6;
+  width: 98%;
+  background-color: #222;
+  border: 1px solid white;
+  color: white;
+  margin: 1px;  
+  padding: 4px;  
+}
+.select-btn {
+  margin: 1px;
+  width: 23%;
+  background-color: gainsboro;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
 .music-container {
   grid-column: 4;
-  grid-row: 4 / 8;   
+  grid-row: 6 / 8;   
   margin-right: 1%;
   padding: 5px;
-  width: 100%;   
+  width: 98%;   
   font-size: 14px;
-  background-color: darkblue;
+  background-color: #222;
   border: 1px solid rgb(254, 253, 253); 
   display: flex;
   flex-direction: column;
@@ -90,9 +121,9 @@ h1 {
 } 
 #logo {
   width: 65px;
-  height: 50px;   
+  height: 60px;   
   float:left;
-  padding: 6px;
+  padding: 5px;
 }
 #wolf {
   width: 25px;
@@ -100,27 +131,27 @@ h1 {
   float:left;
   padding: 4px;
 }
-#file_upload {
-  margin: 10px;
+#file_upload, #imageFile_upload {
+  margin: 6px;
 }
 
 .btn {
-  margin: 2px 20px;
+  margin: 5px;
   width: 40px;
-  font-size: 28px;
+  font-size: 20px;
 }
 .control-buttons {
-  border: 1px solid white;
+  border: 1px solid black;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 .record-buttons {
   position: relative;
-  margin-top: 4px;
-  border: 1px solid white;
+  margin-top: 6px;
+  border: 1px solid black;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -139,35 +170,50 @@ h1 {
 #recordBtn {
   background-color:antiquewhite;
   border: 5px solid red;
-  margin-right: 14px;
+  margin-right: 15px;
 }
 #stopRecordBtn {
   background-color:antiquewhite;
   border: 5px solid black;
   margin-left: 10px;
 }
+.company-logo {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 
 #gui {
   position: absolute;
   right: 4%;
-  top: 50px;  
+  top: 15px;  
   margin-right: 0;
   border-left: 2px solid white;
 }
+
 .footer {
+  position: relative;
   grid-column: 1 / 4;
   grid-row: 7;
-  background-color: gray;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  border: 1px solid black;
+  width: 98%;
+  background-color: #222;
+  border: 1px solid white;
+  margin: 0 2px;
+  padding: 6px;  
 }
-.select-btn {
-  margin: 2px;
-  width: 150px;
-  border: 1px solid black;
+#canvas2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  max-width: 840px;
+  width: 100%;
+  max-height: 80px;
+  border: 1px solid white;
 }
+
 
 .modal {
   display: none;
@@ -230,23 +276,6 @@ h1 {
   left: 1%;
 }
 
-.waveform {
-  background: #222;
-  width: 100%;
-  height: 100px;
-  padding: 10px;
-}
-#duration-time {
-  background-color: black;
-  position: absolute;
-  top: 80%;
-  right: 1rem;
-  color: #fff;
-}
-#current-time {
-  background-color: black;
-  position: absolute;
-  top: 80%;
-  left: 1rem;
-  color: white;
+.main{
+  display: block;
 }
