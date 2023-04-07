@@ -1,11 +1,7 @@
 import * as THREE from './js/three.module.js';
 
 
-const gui = new dat.GUI();
-gui.domElement.id = 'gui';
-document.body.appendChild(gui.domElement);
-
-export const sphereVisualizer = function (scene, camera, renderer, dataArray, analyser, flyCamera){
+export const sphereVisualizer = function (scene, camera, renderer, dataArray, analyser){
      const uniforms = {
           u_time: {type: 'f', value: 0.0},
           u_data_array: {type: 'f', value: dataArray}
@@ -76,42 +72,7 @@ export const sphereVisualizer = function (scene, camera, renderer, dataArray, an
      const icosahedron = new THREE.Mesh(icosaGeo, icosaMat);
      scene.add(icosahedron);
 
-     ///// dat GUI/////
-     const cameraFolder = gui.addFolder('Camera Movement');
-     cameraFolder.add(camera.position, "z", 0, 1000, 0.1).name('ZOOM');
-     //cameraFolder.open();
-     const sphereFolder = gui.addFolder('Sphere');
-     var conf = { color : '#ffae23' };    
-     sphereFolder.addColor(conf, 'color').onChange( function(colorValue) {
-     sphere.material.color.set(colorValue);
-     });
-     //sphereFolder.open();
-
-     const icosahedronData = {
-     radius: 1,
-     detail: 0,
-     }
-     const icosahedronFolder = gui.addFolder('Icosahedron')
-     const icosahedronPropertiesFolder = icosahedronFolder.addFolder('Properties')
-     icosahedronPropertiesFolder
-     .add(icosahedronData, 'radius', 0.1, 20)
-     .step(0.1)
-     .onChange(regenerateIcosahedronGeometry)
-     icosahedronPropertiesFolder
-     .add(icosahedronData, 'detail', 0, 5)
-     .step(1)
-     .onChange(regenerateIcosahedronGeometry)
-
-     function regenerateIcosahedronGeometry() {
-     const newGeometry = new THREE.IcosahedronGeometry(
-          icosahedronData.radius,
-          icosahedronData.detail
-     )
-     icosahedron.geometry.dispose()
-     icosahedron.geometry = newGeometry
-     };
-     gui.close();
-     ///// animation /////
+    ///// animation /////
 
      const clock = new THREE.Clock();
 
@@ -155,7 +116,6 @@ export const sphereVisualizer = function (scene, camera, renderer, dataArray, an
           icosahedron.rotation.z += 0.006;
           icosahedron.rotation.y += 0.009;
 
-
           /// visualizer 
           analyser.getByteFrequencyData(dataArray);
          
@@ -168,10 +128,7 @@ export const sphereVisualizer = function (scene, camera, renderer, dataArray, an
                     ease:Power2.easeOut
                })
           }
-          const delta = clock.getDelta();
-          flyCamera.movementSpeed = 2000;
-          flyCamera.rollSpeed = Math.PI * 10;
-          flyCamera.update(delta);
+         
           renderer.render(scene, camera);
           requestAnimationFrame(animate);
      }

@@ -1,10 +1,7 @@
 import * as THREE from './js/three.module.js';
 
-const gui = new dat.GUI();
-gui.domElement.id = 'gui';
-document.body.appendChild(gui.domElement);
 
-export const cubeVisualizer = function (scene, camera, renderer, dataArray, analyser, flyCamera){
+export const cubeVisualizer = function (scene, camera, renderer, dataArray, analyser){
      const uniforms = {
           u_time: {type: 'f', value: 0.0},
           u_data_array: {type: 'f', value: dataArray}
@@ -54,44 +51,8 @@ export const cubeVisualizer = function (scene, camera, renderer, dataArray, anal
      const icosahedron = new THREE.Mesh(icosaGeo, icosaMat);
      scene.add(icosahedron);
 
-     ///// dat GUI/////
-     const cameraFolder = gui.addFolder('Camera Movement');
-     cameraFolder.add(camera.position, "z", 0, 1000, 0.1).name('ZOOM');
-     //cameraFolder.open();
-     const cubeFolder = gui.addFolder('Cube');
-     var conf = { color : '#ffae23' };    
-     cubeFolder.addColor(conf, 'color').onChange( function(colorValue) {
-     cube.material.color.set(colorValue);
-     });
-
-     const icosahedronData = {
-     radius: 1,
-     detail: 0,
-     }
-     const icosahedronFolder = gui.addFolder('Icosahedron')
-     const icosahedronPropertiesFolder = icosahedronFolder.addFolder('Properties')
-     icosahedronPropertiesFolder
-     .add(icosahedronData, 'radius', 0.1, 20)
-     .step(0.1)
-     .onChange(regenerateIcosahedronGeometry)
-     icosahedronPropertiesFolder
-     .add(icosahedronData, 'detail', 0, 5)
-     .step(1)
-     .onChange(regenerateIcosahedronGeometry)
-
-     function regenerateIcosahedronGeometry() {
-     const newGeometry = new THREE.IcosahedronGeometry(
-          icosahedronData.radius,
-          icosahedronData.detail
-     )
-     icosahedron.geometry.dispose()
-     icosahedron.geometry = newGeometry
-     };
-     gui.close();
-     ///// animation /////
-
+         ///// animation /////
      const clock = new THREE.Clock();
-
      function animate(){
           uniforms.u_time.value = clock.getElapsedTime();
           uniforms.u_data_array.value = dataArray; 
@@ -118,11 +79,7 @@ export const cubeVisualizer = function (scene, camera, renderer, dataArray, anal
                     ease:Power2.easeOut
                })
           }
-         let delta = clock.getDelta();
-         flyCamera.movementSpeed = 500;
-         flyCamera.rollSpeed = Math.PI/2;
-         flyCamera.update(delta);
-          //orbitCamera.update();
+      
           renderer.render(scene, camera);
           requestAnimationFrame(animate);
      }
