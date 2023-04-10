@@ -10,6 +10,8 @@ import {glslVisualizer} from "./glslVisualizer.js";
 import {createInstances} from './instances.js';
 import {createParticles} from './particles.js';
 import {setBackgroundBlue, setBackgroundRed} from './backgrounds.js';
+//import {icosahedronVisualizer} from './icosahedronVis.js';
+import { cylinderVisualizer } from './cylinderVisualizer.js';
 
 fileUpload();
 
@@ -174,21 +176,18 @@ let intensity = 1;
 let spotLight, ambientLight;
 
 initThree();
-createParticles(scene, camera, renderer);
-createInstances(scene, camera, renderer,flyCamera);
+
 
 
 function initThree(){
      scene = new THREE.Scene();
-     //scene.background = new THREE.TextureLoader().load('./assets/textures/space-background.jpg');
-    
-    setBackgroundBlue(scene);
-
+     const texture = new THREE.TextureLoader().load('./assets/textures/space-background.jpg');
+     scene.background = texture;
      camera = new THREE.PerspectiveCamera(
      75,
      canvas.width / canvas.height,
      0.1,
-     2000
+     1000
      )
      camera.position.set(0, 0, 100);
      camera.lookAt(0, 0, 0);
@@ -201,7 +200,7 @@ function initThree(){
 
      //orbitCamera = new OrbitControls(camera, canvas);
      flyCamera = new FlyControls(camera, canvas);
-     flyCamera.movementSpeed = 50;
+     flyCamera.movementSpeed = 25;
      flyCamera.rollSpeed = Math.PI / 4;
      flyCamera.autoForward = false;
      flyCamera.dragToLook = true;
@@ -229,7 +228,19 @@ function initThree(){
      animate();
 };
 
-setBackgroundRed(scene);
+//set Backgrounds
+const blueBtn = document.getElementById('bg_blue');
+const redBtn = document.getElementById('bg_red');
+const pinkBtn = document.getElementById('bg_pink');
+const darkBtn = document.getElementById('bg_dark');
+
+blueBtn.addEventListener('click', () => {setBackgroundBlue(scene)});
+redBtn.addEventListener('click', () => {setBackgroundRed(scene)}); 
+darkBtn.addEventListener('click', () => {scene.background = new THREE.Color(0x777)}); 
+pinkBtn.addEventListener('click', () => {scene.background = new THREE.Color(0xff00ff)}); 
+
+
+////////// Visualizer ///////////
 
 ///// select js file //should be like select file or toggle btn add/remove
 let toggle = false;
@@ -238,12 +249,22 @@ const cubeBtn = document.getElementById('cube_btn');
 const planeBtn = document.getElementById('plane_btn');
 const doubleBtn = document.getElementById('double_btn');
 const glslBtn = document.getElementById('glsl_btn');
+const icosaBtn = document.getElementById('icosa_btn');
+const cylinderBtn = document.getElementById('cylinder_btn');
+const particlesBtn = document.getElementById('particles_btn');
+const instancesBtn = document.getElementById('instances_btn');
+const waveformBtn = document.getElementById('waveform_btn');
 
 sphereBtn.addEventListener('click', visualizerSphere);
 cubeBtn.addEventListener('click', visualizerCube);
 planeBtn.addEventListener('click', visualizerPlane);
 doubleBtn.addEventListener('click', visualizerDouble);
 glslBtn.addEventListener('click', visualizerGlsl);
+icosaBtn.addEventListener('click', visualizerIcosahedron);
+cylinderBtn.addEventListener('click', visualizerCylinder);
+particlesBtn.addEventListener('click', visualizerParticles);
+instancesBtn.addEventListener('click', visualizerInstances);
+waveformBtn.addEventListener('click', visualizerWaveform);
  
 function visualizerSphere(){    
      if(toggle = false) {
@@ -266,20 +287,47 @@ function visualizerDouble(){
 
 function visualizerGlsl(){
  glslVisualizer(scene, camera, renderer, dataArray, analyser);
- }    
-
+}    
+function visualizerIcosahedron(){
+ icosaVisualizer(scene, camera, renderer, dataArray, analyser);
+}    
+function visualizerCylinder(){
+ cylinderVisualizer(scene, camera, renderer, dataArray, analyser);
+}    
+function visualizerParticles(){
+ createParticles(scene, camera, renderer);
+}    
+function visualizerInstances(){
+ createInstances(scene, camera, renderer);
+}    
+function visualizerWaveform(){
+ waveformVisualizer(scene, camera, renderer, dataArray, analyser);
+}    
+////////////////////////////////////////
 
 //// info modal ////
 const modal = document.getElementById('info_modal');
 const modalBtn = document.getElementById("modal_btn");
 const span = document.getElementById('close');
 
-modalBtn.addEventListener('click', () => {
-     modal.style.display = 'block';     
-})
+ modalBtn.addEventListener('click', () => {
+      if(modalBtn.value === 'on') {
+           modal.style.display = 'none';
+           modalBtn.innerText = 'Open Info';
+           modalBtn.value = 'off';
+     } else if(modalBtn.value === 'off'){
+          modal.style.display = 'block';     
+          modalBtn.innerText = 'Close Info';
+          modalBtn.value = 'on';
+     }
+}) 
 span.addEventListener('click', () => {
-     modal.style.display = 'none';     
+     modal.style.display = 'none'; 
+     modalBtn.value = 'off';
+     modalBtn.innerText = 'Open Info';    
 })
+
+console.log(modalBtn.value);
 
 window.addEventListener('resize', function(){
      camera.aspect = canvas.width/canvas.height;
