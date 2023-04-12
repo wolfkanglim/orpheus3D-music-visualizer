@@ -5,13 +5,17 @@ import {fileUpload, audioControls} from './audioControls.js';
 import {sphereVisualizer} from './sphereVisualizer.js';
 import { planeVisualizer } from './planeVisualizer.js';
 import {cubeVisualizer} from './cubeVisualizer.js';
-import {doubleVisualizer} from "./doubleVisualizer.js";
-import {glslVisualizer} from "./glslVisualizer.js";
+import { cylinderVisualizer } from './cylinderVisualizer.js';
+import { glassVisualizer } from './glass.js';
+import { ballsVisualizer } from './ballsVisualizer.js';
+import { ballsLightVisualizer } from './ballsLightVisualizer.js';
+import { ballsWarpVisualizer } from './ballsWarpVisualizer.js';
+//import {doubleVisualizer} from "./doubleVisualizer.js";
+//import {glslVisualizer} from "./glslVisualizer.js";
+//import {icosahedronVisualizer} from './icosahedronVis.js';
 import {createInstances} from './instances.js';
 import {createParticles} from './particles.js';
-import {setBackgroundBlue, setBackgroundRed} from './backgrounds.js';
-//import {icosahedronVisualizer} from './icosahedronVis.js';
-import { cylinderVisualizer } from './cylinderVisualizer.js';
+import {setBackgroundBlue, setBackgroundRed, setBackgroundRed2, setBackgroundGloomy, setBackgroundPerea, setBackgroundStorm, setBackgroundBrownStudio} from './backgrounds.js';
 
 fileUpload();
 
@@ -173,7 +177,7 @@ let scene, camera, renderer;
 //let orbitCamera;
 let flyCamera;
 let intensity = 1;
-let spotLight, ambientLight;
+let spotLight, spotLight2, ambientLight;
 
 initThree();
 
@@ -211,10 +215,15 @@ function initThree(){
      spotLight = new THREE.SpotLight(0xffffff, intensity);
      spotLight.position.set(0, 100, 20);
      spotLight.angle = Math.PI / 4;
-     scene.add(spotLight);
-     const pointLight = new THREE.PointLight(0xffffff, 1);
-     pointLight.position.set(0, 0, 0);
-     scene.add(pointLight);
+     spotLight2 = new THREE.SpotLight(0xffffff, intensity);
+     spotLight2.position.set(0, 500, 20);
+     spotLight.angle = Math.PI / 4;
+     scene.add(spotLight, spotLight2);
+     const pointLight = new THREE.PointLight(0xffffff, 2);
+     pointLight.position.set(0, 0, -500);
+     const pointLight2 = new THREE.PointLight(0xffffff, 2);
+     pointLight2.position.set(0, 0, 0);
+     scene.add(pointLight, pointLight2);
     
      const clock = new THREE.Clock();
      function animate(){
@@ -231,53 +240,58 @@ function initThree(){
 //set Backgrounds
 const blueBtn = document.getElementById('bg_blue');
 const redBtn = document.getElementById('bg_red');
-const pinkBtn = document.getElementById('bg_pink');
-const darkBtn = document.getElementById('bg_dark');
+const gloomyBtn = document.getElementById('bg_gloomy');
+const pereaBtn = document.getElementById('bg_perea');
+const stormBtn = document.getElementById('bg_storm');
+const studioBtn = document.getElementById('bg_studio');
 
 blueBtn.addEventListener('click', () => {setBackgroundBlue(scene)});
 redBtn.addEventListener('click', () => {setBackgroundRed(scene)}); 
-darkBtn.addEventListener('click', () => {scene.background = new THREE.Color(0x777)}); 
-pinkBtn.addEventListener('click', () => {scene.background = new THREE.Color(0xff00ff)}); 
+gloomyBtn.addEventListener('click', () => {setBackgroundGloomy(scene)}); 
+pereaBtn.addEventListener('click', () => {setBackgroundPerea(scene)}); 
+stormBtn.addEventListener('click', () => {setBackgroundStorm(scene)}); 
+studioBtn.addEventListener('click', () => {setBackgroundBrownStudio(scene)}); 
 
 
 ////////// Visualizer ///////////
 
+//ballsLightVisualizer(scene, camera, renderer, dataArray, analyser);
+//ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser);
+
 ///// select js file //should be like select file or toggle btn add/remove
-let toggle = false;
+
 const sphereBtn = document.getElementById('sphere_btn');
 const cubeBtn = document.getElementById('cube_btn');
 const planeBtn = document.getElementById('plane_btn');
 const doubleBtn = document.getElementById('double_btn');
 const glslBtn = document.getElementById('glsl_btn');
-const icosaBtn = document.getElementById('icosa_btn');
+//const icosaBtn = document.getElementById('icosa_btn');
 const cylinderBtn = document.getElementById('cylinder_btn');
 const particlesBtn = document.getElementById('particles_btn');
 const instancesBtn = document.getElementById('instances_btn');
-const waveformBtn = document.getElementById('waveform_btn');
+const glassBtn = document.getElementById('glass_btn');
+const ballsBtn = document.getElementById('balls_btn');
 
 sphereBtn.addEventListener('click', visualizerSphere);
 cubeBtn.addEventListener('click', visualizerCube);
 planeBtn.addEventListener('click', visualizerPlane);
 doubleBtn.addEventListener('click', visualizerDouble);
 glslBtn.addEventListener('click', visualizerGlsl);
-icosaBtn.addEventListener('click', visualizerIcosahedron);
+//icosaBtn.addEventListener('click', visualizerIcosahedron);
 cylinderBtn.addEventListener('click', visualizerCylinder);
 particlesBtn.addEventListener('click', visualizerParticles);
 instancesBtn.addEventListener('click', visualizerInstances);
-waveformBtn.addEventListener('click', visualizerWaveform);
+glassBtn.addEventListener('click', visualizerGlass);
+ballsBtn.addEventListener('click', visualizerBalls);
  
-function visualizerSphere(){    
-     if(toggle = false) {
-          toggle = false;
-          return;
-     } else {
-          sphereVisualizer(scene, camera, renderer, dataArray, analyser);
-          toggle = true;
-     }          
+function visualizerSphere(){        
+     sphereVisualizer(scene, camera, renderer, dataArray, analyser);
 }
+
 function visualizerCube(){
      cubeVisualizer(scene, camera, renderer, dataArray, analyser);
 }
+
 function visualizerPlane(){
      planeVisualizer(scene, camera, renderer, dataArray, analyser);
 }
@@ -286,23 +300,26 @@ function visualizerDouble(){
 }
 
 function visualizerGlsl(){
- glslVisualizer(scene, camera, renderer, dataArray, analyser);
+     glslVisualizer(scene, camera, renderer, dataArray, analyser);
 }    
 function visualizerIcosahedron(){
- icosaVisualizer(scene, camera, renderer, dataArray, analyser);
+     icosaVisualizer(scene, camera, renderer, dataArray, analyser);
 }    
 function visualizerCylinder(){
  cylinderVisualizer(scene, camera, renderer, dataArray, analyser);
 }    
 function visualizerParticles(){
- createParticles(scene, camera, renderer);
+     createParticles(scene, camera, renderer);
 }    
 function visualizerInstances(){
- createInstances(scene, camera, renderer);
+     createInstances(scene, camera, renderer);
 }    
-function visualizerWaveform(){
- waveformVisualizer(scene, camera, renderer, dataArray, analyser);
+function visualizerGlass(){
+     glassVisualizer(scene, camera, renderer, dataArray, analyser);
 }    
+function visualizerBalls(){
+     ballsVisualizer(scene, camera, renderer, dataArray, analyser);
+}     
 ////////////////////////////////////////
 
 //// info modal ////
