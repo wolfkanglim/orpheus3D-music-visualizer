@@ -60,8 +60,8 @@ h1 {
 
 #canvas1 {     
   /* position: absolute; */
-  background-image: url('./assets/textures/space-background.jpg');
-  background-size: cover;
+ /*  background-image: url('./assets/textures/space-background.jpg');
+  background-size: cover; */
   top: 0;
   left: 0;
   width: 100%;  
@@ -74,16 +74,21 @@ h1 {
   background-color: #222;
   border: 1px solid white;
   color: white;
-  margin: 1px;  
+  margin: 2px;  
   padding: 6px; 
 }
 .bg_btn {
   margin: 1px;
   width: 23%;
   height: 30%;
-  background-color: burlywood;
-  border: 1px solid white;
-  border-radius: 4px;
+  background-color: #222;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.bg_btn:focus {
+  border: 2px solid #fff;
+  transform: scale(1.04);
 }
 
 .waveform-container {
@@ -94,16 +99,22 @@ h1 {
   background-color: #222;
   border: 1px solid white;
   color: white;
-  margin: 1px;  
+  margin: 2px;  
   padding: 4px;  
 }
 .select-btn {
   margin: 1px;
   width: 23%;
   height: 30%;
-  background-color: gainsboro;
-  border: 1px solid white;
-  border-radius: 4px;
+  color: white;
+  background-color: #222;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.select-btn:focus{
+  border: 2px solid #fff;
+  transform: scale(1.04);
 }
 
 .music-container {
@@ -168,6 +179,7 @@ h1 {
   margin: 1px;
   padding: 1px;
   border-radius: 50%;
+  cursor: pointer;
 }
 #recordBtn {
   background-color:antiquewhite;
