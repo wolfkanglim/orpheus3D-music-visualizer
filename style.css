@@ -81,6 +81,7 @@ h1 {
   margin: 1px;
   width: 23%;
   height: 30%;
+  color: #fff;
   background-color: #222;
   border: 1px solid #aaa;
   border-radius: 5px;
@@ -88,7 +89,7 @@ h1 {
 }
 .bg_btn:focus {
   border: 2px solid #fff;
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 .waveform-container {
@@ -114,7 +115,7 @@ h1 {
 }
 .select-btn:focus{
   border: 2px solid #fff;
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 .music-container {
@@ -152,6 +153,11 @@ h1 {
   margin: 5px;
   width: 40px;
   font-size: 20px;
+  cursor: pointer;
+}
+.btn:focus {
+  border: 2px solid #fff;
+  transform: scale(1.1);
 }
 .control-buttons {
   border: 1px solid black;
