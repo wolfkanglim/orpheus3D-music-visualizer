@@ -219,9 +219,9 @@ function initThree(){
      spotLight2.position.set(0, 500, 20);
      spotLight.angle = Math.PI / 4;
      scene.add(spotLight, spotLight2);
-     const pointLight = new THREE.PointLight(0xffffff, 2);
+     const pointLight = new THREE.PointLight(0xffffff, 1);
      pointLight.position.set(0, 0, -500);
-     const pointLight2 = new THREE.PointLight(0xffffff, 2);
+     const pointLight2 = new THREE.PointLight(0xffffff, 1);
      pointLight2.position.set(0, 0, 0);
      scene.add(pointLight, pointLight2);
     
@@ -256,7 +256,7 @@ studioBtn.addEventListener('click', () => {setBackgroundBrownStudio(scene)});
 ////////// Visualizer ///////////
 
 //ballsLightVisualizer(scene, camera, renderer, dataArray, analyser);
-//ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser);
+ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser);
 
 ///// select js file //should be like select file or toggle btn add/remove
 
