@@ -6,15 +6,15 @@ import {sphereVisualizer} from './sphereVisualizer.js';
 import { planeVisualizer } from './planeVisualizer.js';
 import {cubeVisualizer} from './cubeVisualizer.js';
 import { cylinderVisualizer } from './cylinderVisualizer.js';
-import { glassVisualizer } from './glass.js';
+import { glassVisualizer } from './glassVisualizer.js';
 import { ballsVisualizer } from './ballsVisualizer.js';
 import { ballsLightVisualizer } from './ballsLightVisualizer.js';
 import { ballsWarpVisualizer } from './ballsWarpVisualizer.js';
 //import {doubleVisualizer} from "./doubleVisualizer.js";
 //import {glslVisualizer} from "./glslVisualizer.js";
 //import {icosahedronVisualizer} from './icosahedronVis.js';
-import {createInstances} from './instances.js';
-import {createParticles} from './particles.js';
+import {createInstances} from './instancesVisualizer.js';
+import {createParticles} from './particlesVisualizer.js';
 import {setBackgroundBlue, setBackgroundRed, setBackgroundRed2, setBackgroundGloomy, setBackgroundPerea, setBackgroundStorm, setBackgroundBrownStudio} from './backgrounds.js';
 
 fileUpload();

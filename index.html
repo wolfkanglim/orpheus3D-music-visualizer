@@ -14,52 +14,63 @@
      <div class="wrapper">
           <div class="title header">
                <image id="logo" src="./assets/textures/taeguk2.png"></image>
-               <h3>Orpheus 3D <span id="small"> Create Unique Music Video</span></h3>
-               <br> play it!<br> share it!</p>
+               <h3>Orpheus 3D <span id="small"> Interactive Music Visualizer</span></h3>
+               <br> Create it!<br> Share it!</p>
                
           </div>
-          <div class="gui-container">
-               <h6>GUI Control panel</h6>
+          <div class="gui-container">               
+               <label class="custom-file-upload" for="file_upload">
+               <input type="file" id="file_upload" accept="audio/*">Music File Upload</label>                      
+               <audio id="audio1" src="./assets/audios/trumpetintro.mp3">
+               </audio>
+               <!-- progress bar 
+               <div id="track-name">song title</div>
+               <div id="time-progress"></div>       
+               <div class="playbar-container">
+                 <div id="playbar">bar container</div>
+                 <div id="playbar-progress">bar</div>
+               </div>
+               <div id="time-left"></div>
+               -->
+               <div class="volume">Volume Bar</div>
           </div>
+
           <div class="main-container">
                <canvas id="canvas1"></canvas>
           </div>
-          <div class="info control-container">
-               <label for="file_upload">Upload Music File</label>       
-               <input type="file" id="file_upload" accept="audio/*">
-               
-               <audio id="audio1" src="./assets/audios/trumpetintro.mp3">
-               </audio>
-              
-               <button class="bg_btn" id="bg_blue">space Blue</button>
-               <button class="bg_btn" id="bg_red">space Red</button>
-               <!-- <button class="bg_btn" id="bg_red2">space Red 2</button> -->
-               <button class="bg_btn" id="bg_gloomy">Gloomy Sky</button>
-               <button class="bg_btn" id="bg_perea">Perea Beach</button>
-               <button class="bg_btn" id="bg_storm">Storm HDR</button>
-               <button class="bg_btn" id="bg_studio">Studio HDR</button>
-<!--                <button class="bg_btn" id="bg_ocean">ocean sky</button>
- -->                        
-               
-              <!--  <p>FLY Controls</p>
-               <p>WASD move, R up, F down, QE roll, up/down pitch, left/right yaw</p> -->
+
+       <div class="info control-container">           
+               <button class="bg_btn selected" id="bg_blue" data="blue">Blue Space</button>
+               <button class="bg_btn" id="bg_red" data="red">Red Space</button>              
+               <button class="bg_btn" id="bg_gloomy" data="gloomy">Sky Gloomy</button>
+               <button class="bg_btn" id="bg_perea" data="perea">Lake Shore</button>
+               <button class="bg_btn" id="bg_storm" data="storm">Spring Field</button>
+               <button class="bg_btn" id="bg_studio" data="studio">Home Studio</button>
+               <button class="bg_btn" id="bg_fly">Fly Navi</button>
+               <button class="bg_btn" id="bg_reset">for reset..</button>        
+               <button class="bg_btn selected" id="bg_icosahedron">Sun Planet</button>         
+               <button class="bg_btn" id="bg_water-ball">Water Ball</button>         
+               <button class="bg_btn" id="bg_disc">Disc Rolling</button>         
+               <button class="bg_btn" id="bg_rubiks">Rubiks Cube</button>         
           </div>
           
           <div class="waveform-container">
-               <button class="select-btn" id="sphere_btn">Sphere Visualizer</button>
-               <button class="select-btn" id="cube_btn" >Cube Visualizer</button>
-               <button class="select-btn" id="plane_btn" >Plane Visualizer</button>
-               <button class="select-btn" id="cylinder_btn"> Cylinder Visualizer</button>
-               <button class="select-btn" id="double_btn">Double Visualizer</button>
-               <button class="select-btn" id="glsl_btn">GLSL Visualizer</button>
-               <button class="select-btn" id="glass_btn"> Glass Visualizer</button>
-               <button class="select-btn" id="instances_btn">Objects Instances</button>
-               <button class="select-btn" id="particles_btn">Star Particles</button>
-               <button class="select-btn" id="balls_btn">Balls Visualizer</button>
-              <!--   <button class="select-btn" id="icosa_btn">Icosa Visualizer</button>
-               <button class="select-btn" id="line_btn">Line FlowField</button>-->
-
-               
+               <button class="select-btn active-visualizer" id="sphere_btn" data="sphere">Planet Rings</button>
+               <button class="select-btn" id="cube_btn" data="cube">Cube Hyper</button>
+               <button class="select-btn" id="plane_btn" data="plane">Net Works</button>
+               <button class="select-btn" id="cylinder_btn" data="cylinder"> Pillars Shuffle</button>
+               <button class="select-btn" id="march_btn" data="march">Tiles March</button>
+               <button class="select-btn" id="glsl_btn" data="glsl">Terrain Map</button>
+               <button class="select-btn" id="glass_btn" data="glass"> Magic Plasma</button>
+               <button class="select-btn" id="instances_btn" data="instances">Flying Meteor</button>
+               <button class="select-btn" id="particles_btn" data="particles">Bigbang Theory</button>
+               <button class="select-btn" id="balls_btn" data="balls">Marbles Shot</button>
+               <button class="select-btn" id="lights_btn" data="lights">Rubber Shines</button>
+               <button class="select-btn" id="warp_btn" data="warp">Warp Lights</button>
+               <button class="select-btn" id="water_btn" data="warp">Water Painting</button>
+               <button class="select-btn" id="liquid_btn" data="liquid">Liquid Cube</button>
+               <button class="select-btn" id="new3_btn" data="warp">new coming..</button>
+               <button class="select-btn" id="new4_btn" data="warp">new coming..</button>
           </div>
 
           <div class="music-container">  
@@ -72,23 +83,19 @@
                     <button class="record-btn" id="recordBtn">START Record</button>
                     <button class="record-btn" id="stopRecordBtn">STOP Record</button>
                </div>
+
+               <div class="footer">
+                    <canvas id="canvas2"></canvas>              
+               </div> 
+
                <div class="company-logo">
                     <image id="wolf" src="./assets/textures/wolfkangicon.jpg"></image>
-               <p>WONDROUS EAST wolfkang</p>
+                    <p>WONDROUS EAST wolfkang</p>
                </div>
-               
-          </div>    
-          
-          <div class="footer">
-              <canvas id="canvas2"></canvas>
-              
-               
-                   
-          </div>     
      </div> 
+
      <button id="modal_btn" value="off">Open Info</button>    
-     <div class="modal" id="info_modal">
-          
+     <div class="modal" id="info_modal">          
           <h3><span id="close">&times;</span></h3>
           <div class="modal-header">
                <h2>How To Create 3D Music Video</h2>     
