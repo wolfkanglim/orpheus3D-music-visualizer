@@ -28,7 +28,7 @@ export function ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser
      let flag = true;
      for(let x = rangeMin; x <= rangeMax; x += gap){
           for(let y = rangeMin; y <= rangeMax; y += gap){
-               for(let z = rangeMin * 10; z <= rangeMax; z += gap){
+               for(let z = rangeMin * 5; z <= rangeMax * 2; z += gap){
                     flag = !flag;
                     const mesh = new THREE.Mesh(geometry, flag ? material1 : material2);
                     
@@ -43,22 +43,8 @@ export function ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser
      }
      scene.add(ballGroup);
 
-     let tl = gsap.timeline({repeat: 3, repeatDelay: 4});
-     tl.to(camera.position, {z: 80, duration:12});
-     tl.to(camera.position, {z: -80, duration:16});
-     tl.to(camera.rotation, {z: Math.PI, duration: 12});
-     tl.to(camera.position, {x: 40, duration:18});
-     tl.to(camera.position, {z: -50, duration:16});
-     tl.to(camera.rotation, {y: Math.PI * 2, duration: 18});
-     tl.to(camera.position, {x: 10, duration:8}); 
-     tl.to(camera.position, {y: 10, duration:8}); 
-     tl.to(camera.rotation, {z: Math.PI, duration:16}); 
-     tl.to(camera.position, {z: -225, duration:16});  
-
-     console.log(balls);
-     console.log(ballGroup);
      function renderFrame(){ 
-          //ballGroup.rotation.z += 0.01;     
+          ballGroup.rotation.z += 0.01;     
           analyser.getByteFrequencyData(dataArray);
          
           for(let i = 0; i < balls.length; i++){
@@ -67,7 +53,8 @@ export function ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser
 
                const pos = balls[i].position;
                
-               //effect 0 just flycamera move effect //
+               if(pitch){
+                      //effect 0 just flycamera move effect //
 
                // effect 1 //
               // gsap.to(ballGroup.scale, {z: pitch/24, duration: 0.5, ease: 'Power2.easeIn'});
@@ -87,12 +74,14 @@ export function ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser
               gsap.to(balls[i].scale, {z: pitch/120, duration: 0.8, ease: 'elastic'});    */
              ////////////////////////////
              //effect 6 even better center warp light show
-              gsap.to(balls[i].scale, {y: pitch/120, duration: 0.5, ease: 'elastic'});
-             gsap.to(balls[i].scale, {x: pitch/120, duration: 0.2, ease: 'elastic'});
-             gsap.to(balls[i].scale, {z: pitch/12, duration: 0.8, ease: 'elastic'});  
+              gsap.to(balls[i].scale, {y: pitch/100, duration: 0.2, ease: 'elastic'});
+             gsap.to(balls[i].scale, {x: pitch/100, duration: 0.2, ease: 'elastic'});
+             gsap.to(balls[i].scale, {z: pitch/8, duration: 0.2, ease: 'elastic'});  
 
              //effect 7
              // gsap.to(ballGroup.position, {z: pitch * 20, duration: 0.8, ease: 'Power2.easeOut'});
+               }
+             
               
           }
 
@@ -101,21 +90,6 @@ export function ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser
      };  
      renderFrame();
 };
-      
-/*           const flyControls = new FlyControls(camera, renderer.domElement);
-flyControls.movementSpeed = 16;
-flyControls.rollSpeed = Math.PI / 16;
-flyControls.autoForward = false;
-flyControls.dragToLook = true;
-flyControls = flyControls;
-
-let tl = gsap.timeline({repeat: 3, repeatDelay: 5});
-tl.to(camera.position, {y: 40, duration:16});
-tl.to(camera.rotation, {z: Math.PI, duration: 12});
-tl.to(camera.position, {x: -40, duration:18});
-tl.to(camera.position, {z: -50, duration:16});
-tl.to(camera.rotation, {y: Math.PI * 2, duration: 12});
-tl.to(camera.position, {x: 50, duration:16}); 
-} */
+ 
 
  
