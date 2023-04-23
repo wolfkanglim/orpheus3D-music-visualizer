@@ -44,12 +44,13 @@ function fitToContainer(canvas){
 ///// audio setup /////
 let analyser;
 let dataArray = [];
+const audioCtx = new AudioContext();
 
-async function audioAnalyser(){    
+async function audioAnalyser(){  
+      audioCtx.resume();     
      let audioSource;
      const audioElement = document.getElementById('audio1');
 
-     const audioCtx = new AudioContext();
      analyser = audioCtx.createAnalyser();
      audioSource = audioCtx.createMediaElementSource(audioElement);
      audioSource.connect(analyser);
@@ -58,6 +59,7 @@ async function audioAnalyser(){
      let bufferLength = analyser.frequencyBinCount;
      dataArray = new Uint8Array(bufferLength);
 
+     
    //canvas2 bar visualizer
     const canvas2 = document.getElementById('canvas2');
      const ctx = canvas2.getContext('2d');

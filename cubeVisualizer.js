@@ -7,7 +7,7 @@ export const cubeVisualizer = function (scene, camera, renderer, dataArray, anal
           u_data_array: {type: 'f', value: dataArray}
      }
      const textureLoader = new THREE.TextureLoader();
-     const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+     const cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
 
      const materials = [
      new THREE.MeshPhongMaterial({map:textureLoader.load('./assets/textures/2k_saturn.jpg')}),
@@ -22,21 +22,21 @@ export const cubeVisualizer = function (scene, camera, renderer, dataArray, anal
      ///// cubes /////
      let cube;
      let cubes = [];
-     let count = 16;
+     let count = 32;
      const cubeGroup = new THREE.Object3D();
 
      
      for(let i = 0; i < count / 4; i++){
           for(let j = 0; j < count * 4; j++){
                cube = new THREE.Mesh(cubeGeometry, materials[i % 8]);
-               cube.position.x = i * 2;
-               cube.position.z = j * 2;
+               cube.position.x = i * 3;
+               cube.position.z = j * 3;
                cube.shininess = 100;
                cubes.push(cube);
                cubeGroup.add(cube);        
           }
      }
-     cubeGroup.position.set(64, -24, 64);
+     cubeGroup.position.set(128, -12, -24);
      cubeGroup.rotation.y = -Math.PI/2;
      scene.add(cubeGroup);
 
@@ -49,10 +49,13 @@ export const cubeVisualizer = function (scene, camera, renderer, dataArray, anal
           map:textureLoader.load('./assets/textures/2k_sun.jpg'),
      })
      const icosahedron = new THREE.Mesh(icosaGeo, icosaMat);
-     scene.add(icosahedron);
+     //scene.add(icosahedron);
 
-         ///// animation /////
+     
+     ///// animation /////
+
      const clock = new THREE.Clock();
+
      function animate(){
           uniforms.u_time.value = clock.getElapsedTime();
           uniforms.u_data_array.value = dataArray; 
@@ -60,6 +63,7 @@ export const cubeVisualizer = function (scene, camera, renderer, dataArray, anal
           cubes.forEach(cube => {
                cube.rotation.x += 0.004;
           cube.rotation.y += 0.001;
+          cube.rotation.z += 0.008;
           })
           
 
@@ -70,16 +74,16 @@ export const cubeVisualizer = function (scene, camera, renderer, dataArray, anal
 
           /// visualizer 
           analyser.getByteFrequencyData(dataArray);
-          for(let i = 0; i < 256; i++){
-               const pitch = dataArray[i];
+          for(let i = 0; i < 1024; i++){
+               const pitch = dataArray[i % 256];
                const s = cubes[i];
                const z = s.position;
-               TweenMax.to(z, 0.2, {
-                    y: pitch/24, 
+               TweenMax.to(z, 0.26, {
+                    y: pitch/7, 
                     ease:Power2.easeOut
                })
           }
-      
+         
           renderer.render(scene, camera);
           requestAnimationFrame(animate);
      }

@@ -94,7 +94,8 @@ export function audioVisualizer(){
 */
 
 
-export function audioControls(){    
+export function audioControls(){ 
+     
      const audioElement = document.getElementById('audio1')
      const playBtn = document.getElementById('playBtn');
      const stopBtn = document.getElementById('stopBtn');

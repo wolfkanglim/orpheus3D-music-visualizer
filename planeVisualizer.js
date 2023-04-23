@@ -29,11 +29,11 @@ export const planeVisualizer = function (scene, camera, renderer, dataArray, ana
      })
      const icosahedron = new THREE.Mesh(geo, mat);
      icosahedron.position.set(0, 0, 0);
-     scene.add(icosahedron);
+     //scene.add(icosahedron);
 
      ///// plane /////
      
-     const planeGeo = new THREE.PlaneGeometry(64, 64, 64, 64);
+     const planeGeo = new THREE.PlaneGeometry(64, 64, 32, 32);
      const planeMat = new THREE.ShaderMaterial({
           vertexShader: shaders.vertexShader,
           fragmentShader: shaders.fragmentShader,
@@ -62,16 +62,17 @@ export const planeVisualizer = function (scene, camera, renderer, dataArray, ana
           planeGroup.add(planeMesh);
           scene.add(planeGroup);
      })
+    
+    
+     ///////////////////////
 
-     /////animation//////////////////
-
-     function animate(){         
+     function animate(){
           analyser.getByteFrequencyData(dataArray);
           uniforms.u_data_arr.value = dataArray;
           planeGroup.rotation.z += 0.002;
           icosahedron.rotation.x += 0.025;
           icosahedron.rotation.y += 0.035;
-      
+          
           renderer.render(scene, camera);
           requestAnimationFrame(animate);
      }

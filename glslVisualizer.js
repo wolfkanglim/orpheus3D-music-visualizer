@@ -10,7 +10,7 @@ export const glslVisualizer = function(scene, camera, renderer, dataArray, analy
           u_data_arr: {type: 'f', value: dataArray}
      }
 
-     const planeGeometry = new THREE.PlaneGeometry(1000, 1000, 50, 50);
+     const planeGeometry = new THREE.PlaneGeometry(1000, 1000, 100, 100);
       const planeMaterial = new THREE.ShaderMaterial({
      color: 0x00ff00,
      uniforms,
@@ -80,10 +80,10 @@ export const glslVisualizer = function(scene, camera, renderer, dataArray, analy
 
 
      /////// Icosahedron  /////////// z????
-     const icosaGeometry = new THREE.SphereGeometry(30, 40, 30);
-     //const icosaGeometry = new THREE.IcosahedronGeometry( 15, 0);
+     //const icosaGeometry = new THREE.SphereGeometry(30, 40, 30);
+     const icosaGeometry = new THREE.IcosahedronGeometry( 10, 0);
      const icosaMaterial = new THREE.ShaderMaterial({
-     wireframe: true,
+     wireframe: false,
      uniforms,
      vertexShader: shaders.vertexShader,
     
@@ -117,7 +117,7 @@ export const glslVisualizer = function(scene, camera, renderer, dataArray, analy
 
      const Icosahedron = new THREE.Mesh(icosaGeometry, icosaMaterial);
      Icosahedron.position.set(0, 0, 0);
-     scene.add(Icosahedron);
+     //scene.add(Icosahedron);
 
      const clock = new THREE.Clock();
 

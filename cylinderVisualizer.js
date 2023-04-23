@@ -11,7 +11,7 @@ export function cylinderVisualizer(scene, camera, renderer, dataArray, analyser)
      }
      //const clock = new THREE.Clock();
 
-     const geometry = new THREE.CylinderGeometry(0.25, 0.25, 12, 36);
+     const geometry = new THREE.CylinderGeometry(0.25, 0.75, 12, 36);
      const material = new THREE.ShaderMaterial({
           wireframe: false,
           //side: THREE.DoubleSide,
@@ -42,9 +42,11 @@ export function cylinderVisualizer(scene, camera, renderer, dataArray, analyser)
           `   
      })
 
+     // tiles cylinder//
+
      let tiles = [];
      let group = new THREE.Group(); 
-     group.position.set(96, -25, 30);
+     group.position.set(96, -25, 48);
      group.rotation.y = -Math.PI / 2; 
 
      for(let col = 0; col < cols; col++){
@@ -75,35 +77,86 @@ export function cylinderVisualizer(scene, camera, renderer, dataArray, analyser)
      positions = null;
      scene.add(group);
 
+     //pivot cylinders//
+     let cylinder;
+     let cylinders = [];
+     const cylinderPivot = new THREE.Object3D();
+     const cylinderPivot1 = new THREE.Object3D();
+     const cylinderPivot2 = new THREE.Object3D();
+     const cylinderPivot3 = new THREE.Object3D();
+     const cylinderPivot4 = new THREE.Object3D();
+
+     for(let degree = 0; degree < Math.PI * 2; degree += Math.PI / 12){
+           cylinder = new THREE.Mesh(geometry, material);
+          //const rad = THREE.Math.degToRad(degree);
+          cylinder.position.set(Math.sin(degree) * 10, 0, Math.cos(degree) * 10);
+          cylinderPivot.add(cylinder);
+          cylinders.push(cylinder);     
+     }
+     for(let degree = 0; degree < Math.PI * 2; degree += Math.PI / 24){
+           cylinder = new THREE.Mesh(geometry, material);
+          //const rad = THREE.Math.degToRad(degree);
+          cylinder.position.set(Math.sin(degree) * 30, 0, Math.cos(degree) * 30);
+          cylinderPivot1.add(cylinder);
+          cylinders.push(cylinder);     
+     }
+     for(let degree = 0; degree < Math.PI * 2; degree += Math.PI / 36){
+           cylinder = new THREE.Mesh(geometry, material);
+          //const rad = THREE.Math.degToRad(degree);
+          cylinder.position.set(Math.sin(degree) * 50, 0, Math.cos(degree) * 50);
+          cylinderPivot2.add(cylinder);
+          cylinders.push(cylinder);     
+     }
+
+     for(let degree = 0; degree < Math.PI * 2; degree += Math.PI / 48){
+           cylinder = new THREE.Mesh(geometry, material);
+          //const rad = THREE.Math.degToRad(degree);
+          cylinder.position.set(Math.sin(degree) * 70, 0, Math.cos(degree) * 70);
+          cylinderPivot3.add(cylinder);
+          cylinders.push(cylinder);     
+     }
+
+     for(let degree = 0; degree < Math.PI * 2; degree += Math.PI / 64){
+           cylinder = new THREE.Mesh(geometry, material);
+          //const rad = THREE.Math.degToRad(degree);
+          cylinder.position.set(Math.sin(degree) * 90, 0, Math.cos(degree) * 90);
+          cylinderPivot4.add(cylinder);
+          cylinders.push(cylinder);     
+     }
+     cylinderPivot.position.y = 12;
+     cylinderPivot1.position.y = 0;
+     cylinderPivot2.position.y = -12;
+     cylinderPivot3.position.y = -24;
+     cylinderPivot4.position.y = -36;
+     scene.add(cylinderPivot, cylinderPivot1,cylinderPivot2, cylinderPivot3, cylinderPivot4);
+
+
      let scale = 0;
      let frequency = 0;
      
-     /* function update(){
-          analyser.getByteFrequencyData(dataArray);
-          for(let i = 0; dataArray.length; i++){
-               frequency = dataArray[i];
-               scale = map(frequency, 0, 255, 0.001, 1) * 2;
-               if(tiles[i]){
-                    TweenMax.to(tiles[i].scale, 0.5, {
-                         y: scale
-                    })
-               }
-          }
-     } */
-
-
      const clock = new THREE.Clock();
 
      function animate() {   
+          cylinderPivot.rotation.y += 0.01;
+          cylinderPivot1.rotation.y += 0.006;
+          cylinderPivot2.rotation.y -= 0.002;
+          cylinderPivot3.rotation.y += 0.0008;
+          cylinderPivot4.rotation.y -= 0.0005;
           uniforms.u_time.value = clock.getElapsedTime() * 0.2;   
        
           analyser.getByteFrequencyData(dataArray);
           for(let i = 0; i < dataArray.length; i++){
                frequency = dataArray[i];
-               scale = map(frequency, 0, 255, 0.001, 1) * 2;
+               scale = map(frequency, 0, 255, 0.001, 1) * 3;
                if(tiles[i]){
                     TweenMax.to(tiles[i].scale, 0.25, {
                          y: scale ,
+                    })
+               }
+
+               if(cylinders[i]){
+                    TweenMax.to(cylinders[i].position, 0.25, {
+                         y: scale * 20 ,
                     })
                }
           }
