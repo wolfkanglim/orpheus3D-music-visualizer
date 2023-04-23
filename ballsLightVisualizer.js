@@ -24,11 +24,11 @@ export function ballsLightVisualizer(scene, camera, renderer, dataArray, analyse
      let ballGroup = new THREE.Group(); 
      const rangeMax = 32;
      const rangeMin = -32;
-     const gap = 6;
+     const gap = 5;
      let flag = true;
-     for(let x = rangeMin; x <= rangeMax; x += gap){
+     for(let x = rangeMin ; x <= rangeMax; x += gap){
           for(let y = rangeMin; y <= rangeMax; y += gap){
-               for(let z = rangeMin * 10; z <= rangeMax; z += gap){
+               for(let z = rangeMin * 6; z <= rangeMax * 1.2; z += gap){
                     flag = !flag;
                     const mesh = new THREE.Mesh(geometry, flag ? material1 : material2);
                     
@@ -43,63 +43,33 @@ export function ballsLightVisualizer(scene, camera, renderer, dataArray, analyse
      }
      scene.add(ballGroup);
 
-     let tl = gsap.timeline({repeat: 3, repeatDelay: 4});
-     tl.to(camera.position, {z: 80, duration:12});
-     tl.to(camera.position, {z: -80, duration:16});
-     tl.to(camera.rotation, {z: Math.PI, duration: 12});
-     tl.to(camera.position, {x: 40, duration:18});
-     tl.to(camera.position, {z: -50, duration:16});
-     tl.to(camera.rotation, {y: Math.PI * 2, duration: 18});
-     tl.to(camera.position, {x: 10, duration:8}); 
-     tl.to(camera.position, {y: 10, duration:8}); 
-     tl.to(camera.rotation, {z: Math.PI, duration:16}); 
-     tl.to(camera.position, {z: -225, duration:16});  
-
-     console.log(balls);
-     console.log(ballGroup);
-     function renderFrame(){ 
+   
+     function animate(){ 
           //ballGroup.rotation.z += 0.01;     
           analyser.getByteFrequencyData(dataArray);
-         
-          for(let i = 0; i < balls.length; i++){
-               let num = Math.floor(i % 256);
-               const pitch = dataArray[num];
+        
+          
+               for(let i = 0; i < balls.length; i++){
+                    let num = Math.floor(i % 256);
+                    const pitch = dataArray[num];
 
-               const pos = balls[i].position;
+                if(pitch){
+                  
+                    gsap.to(balls[i].scale, {y: pitch/12, duration: 1, ease: 'elastic'});
+               gsap.to(balls[i].scale, {x: pitch/120, duration: 0.25, ease: 'elastic'});
+               gsap.to(balls[i].scale, {z: pitch/60, duration: 0.25, ease: 'elastic'});     
+                }   
                
-               //effect 0 just flycamera move effect //
-
-               // effect 1 //
-              // gsap.to(ballGroup.scale, {z: pitch/24, duration: 0.5, ease: 'Power2.easeIn'});
-               
-               // effect 2
-              // gsap.to(ballGroup.scale, {y: pitch/12, duration: 0.5, ease: 'Power2.easeIn'});     
-               
-               // effect 3
-              // gsap.to(ballGroup.scale, {x: pitch/6, duration: 0.5, ease: 'elastic'});               
-             
-             // effect 4 //
-              //gsap.to(balls[i].position, {y: pitch/6, duration: 0.3, ease: 'Power2.easeOut'}); 
-             
-             // effect5  good like vertical light show  
-                gsap.to(balls[i].scale, {y: pitch/12, duration: 0.5, ease: 'elastic'});
-              gsap.to(balls[i].scale, {x: pitch/120, duration: 0.2, ease: 'elastic'});
-              gsap.to(balls[i].scale, {z: pitch/120, duration: 0.8, ease: 'elastic'});   
-             ////////////////////////////
-             //effect 6 even better center warp light show
-             /*  gsap.to(balls[i].scale, {y: pitch/120, duration: 0.5, ease: 'elastic'});
-             gsap.to(balls[i].scale, {x: pitch/120, duration: 0.2, ease: 'elastic'});
-             gsap.to(balls[i].scale, {z: pitch/12, duration: 0.8, ease: 'elastic'});  */
-
-             //effect 7
-             // gsap.to(ballGroup.position, {z: pitch * 20, duration: 0.8, ease: 'Power2.easeOut'});
               
-          }
+               ////////////////////////////
+                             
+               }
+          
 
           renderer.render(scene, camera);            
-          requestAnimationFrame(renderFrame);
+          requestAnimationFrame(animate);
      };  
-     renderFrame();
+     animate();
 };
       
 /*           const flyControls = new FlyControls(camera, renderer.domElement);

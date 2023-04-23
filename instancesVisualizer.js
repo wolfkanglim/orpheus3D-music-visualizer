@@ -2,7 +2,7 @@ import * as THREE from './js/three.module.js';
 
 let instancedMesh;
 let instancedMeshCount = 20000;
-export const createInstances = function (scene, camera, renderer){     
+export const instancesVisualizer = function (scene, camera, renderer){     
      const geometry = new THREE.IcosahedronGeometry();
      const material  = new THREE.MeshPhongMaterial({
           color: 0xffea00,          

@@ -2,7 +2,7 @@ import * as THREE from './js/three.module.js';
 
 let particles = [];
 let particlesCount = 1400;
-export const createParticles = function (scene, camera, renderer){
+export const particlesVisualizer = function (scene, camera, renderer){
      const particleGeometry = new THREE.BufferGeometry();
      const positions = new Float32Array(particlesCount * 3);
      for(let i = 0; i < particlesCount * 3; i++){
