@@ -104,6 +104,22 @@ export const liquidCubeVisualizer = function (scene, camera, renderer, dataArray
     return materials;
   }
 
+  function createShaderMaterial( shader, light, ambientLight ) {
+    const u = THREE.UniformsUtils.clone( shader.uniforms );
+    const vs = shader.vertexShader;
+    const fs = shader.fragmentShader;
+
+    const material = new THREE.ShaderMaterial( { uniforms: u, vertexShader: vs, fragmentShader: fs } );
+
+    material.uniforms[ 'uDirLightPos' ].value = light.position;
+    material.uniforms[ 'uDirLightColor' ].value = light.color;
+
+    material.uniforms[ 'uAmbientLightColor' ].value = ambientLight.color;
+
+    return material;
+  } 
+  createShaderMaterial();
+
 
   function setupGui() {
     const createHandler = function ( id ) {
