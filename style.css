@@ -101,26 +101,30 @@ h3 {
   font-size: 10px;
   margin: 1px;
   padding: 3px;
-  width: 23%;
-  height: 30%;
-  color: white;
+  width: 22.8%;
+  height: 29.80%;
+  color: rgba(255, 255, 255, 0.5);
   background-color: #222;
-  border: 1px solid #aaa;
+  border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
   transition: all .4s;
 }
 .bg_btn:hover, .select-btn:hover {
-  border: 1.6px solid #fff;
+  border: 1.15px solid #fff;
   font-size: 11px;
   color: #fff;
   transform: scale(1.05);
 }
 
 .fly_btn {
-  background-color: #b5f409;
-  color: #222;
+  background-color: #444;
+  color: rgba(255, 255, 255, 0.85);
   border-radius: 50%;
+}
+.fly_btn:focus {
+  background-color: #b5f409;
+  color: #111;
 }
 
 .waveform-container {
@@ -138,26 +142,15 @@ h3 {
   justify-content:space-between;
   align-items:center;
 }
-.select-btn {
-  font-size: 10px;
-  margin: 1px;
-  padding: 3px;
-  width: 23%;
-  height: 22.50%;
-  color: white;
-  background-color: #222;
-  border: 1px solid #aaa;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all .4s;
-}
 
 .active-bg{
   border: 2px solid #fff;
-  color: #111;
+  color: #fff;
   background-color: #05ff05;
 }
-
+.select-btn{
+  height: 23%;
+}
 .music-container {
   position: relative;
   grid-column: 4 / 5;
@@ -425,15 +418,15 @@ h3 {
   display: none;
   position: fixed;
   z-index: 1;
-  top: 18%;
-  left: 2%;
-  width: 60%;
-  height: 80%;
+  top: 8%;
+  left: 1%;
+  width: 70%;
+  height: 85%;
   overflow: auto;
   background-color: #ddd;
   color: black;
   padding: 2px;
-  border: 2px solid white;
+  border: 2px solid #222;
   border-radius: 20px;
   opacity: 1;
   animation-name: animate_modal;
@@ -484,7 +477,7 @@ h3 {
 
 #modal_btn {
   position: absolute;
-  top: 6%;
+  top: 3%;
   left: 0%;
   padding: 3px;
   border-radius: 0 10px 10px 0;
