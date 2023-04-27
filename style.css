@@ -116,11 +116,11 @@ h3 {
   color: #fff;
   transform: scale(1.05);
 }
-.bg_btn:focus, .select-btn:focus {
-  border: 1px solid #222;
+
+.fly_btn {
+  background-color: #b5f409;
   color: #222;
-  background-color: #eee;
-  transform: scale(1.04);
+  border-radius: 50%;
 }
 
 .waveform-container {
@@ -150,6 +150,12 @@ h3 {
   border-radius: 5px;
   cursor: pointer;
   transition: all .4s;
+}
+
+.active-bg{
+  border: 2px solid #fff;
+  color: #111;
+  background-color: #05ff05;
 }
 
 .music-container {
@@ -253,6 +259,135 @@ h3 {
   margin-right: 0;
   display: none;
 }
+
+#bg_blue{
+  background-image: url('./assets/textures/blue/bkg1_left.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+}
+#bg_red{
+  background-image: url('./assets/textures/red/bkg1_front5.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+}
+#bg_gloomy{
+  background-image: url('./assets/textures/gloomy_skybox/gloomy_ft.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+}
+#bg_perea{
+  background-image: url('./assets/textures/pereaBeach1/posz.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+}
+#bg_storm{
+  background-image: url('./assets/textures/pereaBeach1/posx.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+}
+#bg_studio{
+  background-image: url('./assets/textures/pereaBeach1/posy.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+}
+
+#bg_icosahedron{
+  background-image: url('./assets/images/icosahedron.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  
+}
+#bg_water-ball{
+  background-image: url('./assets/images/waterball2.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#bg_disc {
+  background-image: url('./assets/images/disc.png');  
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#bg_rubiks{
+  background-image: url('./assets/images/rubikscube.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#plane_btn{
+  background-image: url('./assets/images/planes.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#sphere_btn{
+  background-image: url('./assets/images/sphere-ring.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#cube_btn{
+  background-image: url('./assets/images/cube.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#cylinder_btn{
+  background-image: url('./assets/images/cylinder.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#glsl_btn{
+  background-image: url('./assets/images/terrain.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#glass_btn{
+  background-image: url('./assets/images/glass.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#instances_btn{
+  background-image: url('./assets/images/instances.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#particles_btn{
+  background-image: url('./assets/images/bigbang.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#balls_btn{
+  background-image: url('./assets/images/balls2.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#lights_btn{
+  background-image: url('./assets/images/lights.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#warp_btn{
+  background-image: url('./assets/images/warp.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#water_btn{
+  background-image: url('./assets/images/watercolor.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#liquid_btn{
+  background-image: url('./assets/images/liquid.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
+#line-sphere_btn{
+  background-image: url('./assets/images/linesphere.png');
+  background-size: contain;
+  background-repeat:no-repeat;
+}    
 
 .footer {
   position: relative;
