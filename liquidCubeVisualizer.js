@@ -4,6 +4,8 @@ import Stats from './js/stats.module.js';
 
 import { GUI } from './js/lil-gui.module.min.js';
 import { MarchingCubes } from './js/MarchingCubes.js';
+import { ToonShader1, ToonShader2, ToonShaderHatching, ToonShaderDotted } from './js/ToonShader.js';
+
 
 export const effectObj = new THREE.Object3D();
 
@@ -98,11 +100,31 @@ export const liquidCubeVisualizer = function (scene, camera, renderer, dataArray
     const refractionCube = red;
     refractionCube.mapping = THREE.CubeRefractionMapping; 
 
-      const materials = {
-      'shiny': new THREE.MeshStandardMaterial( { color: 0x550000, envMap: reflectionCube, roughness: 0.1, metalness: 1.0 } ),
-      'liquid': new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: refractionCube, refractionRatio: 0.85 } ),
-      
-    };
+   // toons
+   const toonMaterial1 = createShaderMaterial( ToonShader1, light, ambientLight );
+   const toonMaterial2 = createShaderMaterial( ToonShader2, light, ambientLight );
+   const hatchingMaterial = createShaderMaterial( ToonShaderHatching, light, ambientLight );
+   const dottedMaterial = createShaderMaterial( ToonShaderDotted, light, ambientLight );
+ 
+   const texture = new THREE.TextureLoader().load( './assets/textures/water-surface.jpg' );
+   texture.wrapS = THREE.RepeatWrapping;
+   texture.wrapT = THREE.RepeatWrapping;
+ 
+   const materials = {
+     'shiny': new THREE.MeshStandardMaterial( { color: 0x550000, envMap: reflectionCube, roughness: 0.1, metalness: 1.0 } ),
+     'chrome': new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: reflectionCube } ),
+     'liquid': new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: refractionCube, refractionRatio: 0.85 } ),
+     'matte': new THREE.MeshPhongMaterial( { specular: 0x111111, shininess: 1 } ),
+     'flat': new THREE.MeshLambertMaterial( { /*TODO flatShading: true */ } ),
+     'textured': new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x111111, shininess: 1, map: texture } ),
+     'colors': new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0xffffff, shininess: 2, vertexColors: true } ),
+     'multiColors': new THREE.MeshPhongMaterial( { shininess: 2, vertexColors: true } ),
+     'plastic': new THREE.MeshPhongMaterial( { specular: 0x888888, shininess: 250 } ),
+     'toon1': toonMaterial1,
+     'toon2': toonMaterial2,
+     'hatching': hatchingMaterial,
+     'dotted': dottedMaterial
+   };
 
     return materials;
   }
@@ -121,7 +143,7 @@ export const liquidCubeVisualizer = function (scene, camera, renderer, dataArray
 
     return material;
   } 
-  createShaderMaterial();
+  //createShaderMaterial();
 
 
   function setupGui() {
