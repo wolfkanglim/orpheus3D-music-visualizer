@@ -5,6 +5,8 @@ import Stats from './js/stats.module.js';
 import { GUI } from './js/lil-gui.module.min.js';
 import { MarchingCubes } from './js/MarchingCubes.js';
 
+export const effectObj = new THREE.Object3D();
+
 let stats;
 let materials, current_material;
 let light, pointLight, ambientLight,  spotLight;
@@ -22,17 +24,17 @@ export const liquidCubeVisualizer = function (scene, camera, renderer, dataArray
     
     light = new THREE.DirectionalLight( 0xffffff );
     light.position.set( 0.5, 0.5, 1 );
-    scene.add( light );
+    effectObj.add( light );
 
     pointLight = new THREE.PointLight( 0xff3300 );
     pointLight.position.set( 0, 0, 100 );
-    scene.add( pointLight );
+    effectObj.add( pointLight );
 
     ambientLight = new THREE.AmbientLight( 0x080808 );
-    scene.add( ambientLight );
+    effectObj.add( ambientLight );
 
     spotLight = new THREE.SpotLight(0xff0000, 10);
-    scene.add(spotLight);
+    effectObj.add(spotLight);
 
     // MATERIALS
     materials = generateMaterials();
@@ -45,7 +47,8 @@ export const liquidCubeVisualizer = function (scene, camera, renderer, dataArray
     effect.scale.set( 200, 200, 200 );
     effect.enableUvs = false;
     effect.enableColors = false;
-    scene.add( effect );
+    effectObj.add( effect );
+    scene.add(effectObj);
 
     // RENDERER
     

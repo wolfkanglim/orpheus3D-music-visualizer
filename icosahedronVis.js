@@ -1,11 +1,11 @@
 import * as THREE from './js/three.module.js';
 
-
+export let rafIcosahedron;
+export const groupIcosahedron = new THREE.Group();
  
 
 export function icosahedronVisualizer(scene, camera, renderer, dataArray, analyser){    
-     const groupIcosahedron = new THREE.Group();
-
+     
      const icosahedronGeo = new THREE.IcosahedronGeometry(10, 0);
      const icosahedronMat = new THREE.MeshPhongMaterial({
           map: new THREE.TextureLoader().load('./assets/textures/2k_sun.jpg'),
@@ -15,9 +15,11 @@ export function icosahedronVisualizer(scene, camera, renderer, dataArray, analys
      const icosahedron1 = new THREE.Mesh(icosahedronGeo, icosahedronMat);
      const icosahedron2 = new THREE.Mesh(icosahedronGeo, icosahedronMat);
      const icosahedron3 = new THREE.Mesh(icosahedronGeo, icosahedronMat);
-    groupIcosahedron.add(icosahedron1, icosahedron2, icosahedron3);
-     scene.add(icosahedron, icosahedron1, icosahedron2, icosahedron3);        
-     scene.add(groupIcosahedron);    
+    groupIcosahedron.add(icosahedron, icosahedron1, icosahedron2, icosahedron3);
+     //scene.add(icosahedron, icosahedron1, icosahedron2, icosahedron3); 
+     groupIcosahedron.name = 'icosa';       
+     scene.add(groupIcosahedron);  
+
         
      function update(){          
           icosahedron.rotation.y += 0.0071;
@@ -42,19 +44,22 @@ export function icosahedronVisualizer(scene, camera, renderer, dataArray, analys
           update();
            analyser.getByteFrequencyData(dataArray);
            for(let i = 0; i < dataArray.length; i++){
-               let frequency = dataArray[144] * 2;
+               let frequency = dataArray[144] * 2.5;
               let scale = map(frequency, 0, 255, 0.001, 1) * 2;
                //if(icosahedron1){
-                    TweenMax.to(icosahedron1.position, 0.25, {
+                    TweenMax.to(icosahedron1.position, 0.24, {
                          y: scale ,
                     })
-                    TweenMax.to(icosahedron2.position, 0.25, {
-                         x: scale ,
+                    TweenMax.to(icosahedron2.position, 0.24, {
+                         y: -scale ,
                     })
                     TweenMax.to(icosahedron3.position, 0.25, {
-                         z: scale ,
+                         x: scale ,
                     })
-               //}
+                    TweenMax.to(icosahedron.position, 0.25, {
+                         x: -scale ,
+                    })                   
+                                  //}
           }
          /* let lowerHalfArray = dataArray.slice(0, (dataArray.length / 2) - 1);
           let upperHalfArray = dataArray.slice((dataArray.length/2) - 1, dataArray.length - 1);
@@ -73,7 +78,7 @@ export function icosahedronVisualizer(scene, camera, renderer, dataArray, analys
      
          ////////////
          renderer.render(scene, camera);
-         requestAnimationFrame(animate); 
+         rafIcosahedron = requestAnimationFrame(animate); 
      };   
      animate();  
 };

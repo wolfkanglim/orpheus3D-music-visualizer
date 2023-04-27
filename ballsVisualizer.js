@@ -1,5 +1,7 @@
 import * as THREE from './js/three.module.js';
 
+export let ballGroup = new THREE.Group(); 
+
 export function ballsVisualizer(scene, camera, renderer, dataArray, analyser){
    
      const geometry = new THREE.SphereGeometry(1, 10, 10);
@@ -21,7 +23,6 @@ export function ballsVisualizer(scene, camera, renderer, dataArray, analyser){
      });
 
      let balls = [];
-     let ballGroup = new THREE.Group(); 
      const rangeMax = 32;
      const rangeMin = -32;
      const gap = 6;

@@ -1,8 +1,11 @@
 import * as THREE from './js/three.module.js';
 
-let instancedMesh;
-let instancedMeshCount = 20000;
-export const instancesVisualizer = function (scene, camera, renderer){     
+export const instancedMeshGroup = new THREE.Object3D();
+
+export const instancesVisualizer = function (scene, camera, renderer, dataArray, analyser){
+     let instancedMesh;
+     let instancedMeshCount = 20000;
+     let instancedMeshes = [];     
      const geometry = new THREE.IcosahedronGeometry();
      const material  = new THREE.MeshPhongMaterial({
           color: 0xffea00,          
@@ -11,8 +14,10 @@ export const instancesVisualizer = function (scene, camera, renderer){
      instancedMesh = new THREE.InstancedMesh(geometry, material, instancedMeshCount);
      instancedMesh.castShadow = true;
      instancedMesh.receiveShadow = true;
-     scene.add(instancedMesh);
-
+     instancedMeshes.push(instancedMesh);
+     //scene.add(instancedMesh);
+     instancedMeshGroup.add(instancedMesh);
+     scene.add(instancedMeshGroup);
      const spaceObj = new THREE.Object3D();
      for(let i = 0; i < instancedMeshCount; i++){
           spaceObj.position.x = (Math.random() * 300 - 150) ;
@@ -31,7 +36,13 @@ export const instancesVisualizer = function (scene, camera, renderer){
      }
 
      function animate(time){     
-         
+      
+        analyser.getByteFrequencyData(dataArray);
+         for(let i = 0; i < instancedMeshes.length; i += 25){
+               let pitch = dataArray[i % 256] / 10;
+               instancedMeshes[i].position.z = pitch;             
+         }
+
           for(let i = 0; i < instancedMeshCount; i++){
                instancedMesh.getMatrixAt(i, spaceObj.matrix);
                spaceObj.matrix.decompose(spaceObj.position, spaceObj.rotation, spaceObj.scale);

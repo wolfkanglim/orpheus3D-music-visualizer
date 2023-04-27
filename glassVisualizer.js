@@ -1,6 +1,8 @@
 import * as THREE from './js/three.module.js';
 import { TeapotGeometry } from '../js/TeapotGeometry.js';
 
+export const groupGlass = new THREE.Object3D(); 
+
 
 export function glassVisualizer(scene, camera, renderer, dataArray, analyser){
      new THREE.TextureLoader().load('./assets/textures/space-background.jpg', texture => {
@@ -17,7 +19,7 @@ export function glassVisualizer(scene, camera, renderer, dataArray, analyser){
      const material = new THREE.MeshStandardMaterial({color: 0x5f5fff});
      const cube = new THREE.Mesh(geometry, material);
      cube.position.set(2, 55, 0);
-     scene.add(cube);
+     groupGlass.add(cube);
 
      const teapotRenderTarget = new THREE.WebGLCubeRenderTarget(1024, renderTargetOptions);
      const teapotCamera = new THREE.CubeCamera(0.1, 1000, teapotRenderTarget);
@@ -34,7 +36,7 @@ export function glassVisualizer(scene, camera, renderer, dataArray, analyser){
      })
      const teapot = new THREE.Mesh(teapotGeo, teapotMat);
      teapot.add(teapotCamera);
-     scene.add(teapot);
+     groupGlass.add(teapot);
 
      const cylinderGeo = new THREE.CylinderGeometry(2, 3.5, 45, 20);
      const cylinderMat = new THREE.MeshPhongMaterial({
@@ -51,7 +53,7 @@ export function glassVisualizer(scene, camera, renderer, dataArray, analyser){
           cylinders.push(cylinder);
      
      }
-     scene.add(cylinderPivot);
+     groupGlass.add(cylinderPivot);
 
      const planeGeo = new THREE.CylinderGeometry(60, 60, 0.5, 50, 50);
      const planeMat = new THREE.MeshPhongMaterial({
@@ -62,10 +64,11 @@ export function glassVisualizer(scene, camera, renderer, dataArray, analyser){
      const table = new THREE.Mesh(planeGeo, planeMat);
      //table.rotation.x = -Math.PI / 2;
      table.position.set(0, -20, 0);
-     scene.add(table);
+     groupGlass.add(table);
      // console.log(table);
      // console.log(cylinder);
      // console.log(teapot);
+     scene.add(groupGlass);
      
      const clock = new THREE.Clock();
 

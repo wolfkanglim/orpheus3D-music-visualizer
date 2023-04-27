@@ -1,6 +1,7 @@
 import * as THREE from './js/three.module.js';
 
-
+export let rafSphereVisualizer;
+export const groupRing = new THREE.Group();
 
 
 export const sphereVisualizer = function (scene, camera, renderer, dataArray, analyser){
@@ -51,7 +52,8 @@ export const sphereVisualizer = function (scene, camera, renderer, dataArray, an
           }
           group.position.set(0,0,0);
           group.rotation.x = -Math.PI / 2;
-          scene.add(group);
+          groupRing.add(group);
+          scene.add(groupRing);
      }
      createRing(20, 20, ringOne);
      createRing(30, 30, ringTwo);

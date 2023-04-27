@@ -3,6 +3,7 @@ import * as THREE from './js/three.module.js';
 import shaders from './src/shadersPlane.js';
 import planeMeshParameters from './src/planeMeshParam.js';
 
+export const planeGroup = new THREE.Group();
 
 export const planeVisualizer = function (scene, camera, renderer, dataArray, analyser){
      const uniforms = {
@@ -43,7 +44,6 @@ export const planeVisualizer = function (scene, camera, renderer, dataArray, ana
 
      let planeMesh;
      let planeMeshArray = [];
-     const planeGroup = new THREE.Group();
      planeMeshParameters.forEach(item => {
           planeMesh = new THREE.Mesh(planeGeo, planeMat);
           if(item.rotation.x == undefined){

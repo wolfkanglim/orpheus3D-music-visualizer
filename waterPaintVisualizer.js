@@ -1,5 +1,7 @@
 import * as THREE from './js/three.module.js';
 
+export const sphereObj = new THREE.Object3D();
+
 var uniforms;
 var startTime;
 
@@ -65,7 +67,8 @@ export const waterPaintVisualizer = function(scene, camera, renderer,dataArray, 
 
   var mesh = new THREE.Mesh( geometry, material );
   mesh.position.z = 0;
-  scene.add( mesh );  
+  sphereObj.add( mesh );  
+  scene.add( sphereObj );  
 
   function animate() {   
     requestAnimationFrame( animate );

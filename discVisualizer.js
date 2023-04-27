@@ -3,6 +3,7 @@ import * as THREE from './js/three.module.js';
 //import {OrbitControls} from './js/OrbitControls.js';
 import * as BufferGeometryUtils from './js/BufferGeometryUtils.js';
 
+export const disc = new THREE.Object3D();
 
 let orbitControls;
 let sphere, length1;
@@ -124,7 +125,8 @@ const  uniforms = {
      
      sphere = new THREE.Points( geometry, material );
      //sphere.scale.set(0.1, 0.1, 0.1);
-     scene.add( sphere );
+     disc.add( sphere );
+     scene.add(disc);
 
      function sortPoints() {
           const vector = new THREE.Vector3();

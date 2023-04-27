@@ -1,7 +1,8 @@
 import * as THREE from './js/three.module.js';
-import {OrbitControls} from './js/OrbitControls.js';
 
-let  controls, rollObject, group, rubiksCube;
+export const rubiksCube = new THREE.Object3D();
+
+let  controls, rollObject, group;
 
 const rotateConditions = {
   right: { axis: "x", value: 5 },
@@ -129,7 +130,7 @@ class Roll {
 }
 
 
-          controls = new OrbitControls(camera, renderer.domElement);          
+         
           createObjects();   
 
      function createObjects() {
@@ -160,7 +161,7 @@ class Roll {
 
           group = new THREE.Group();
           //scene.add(group);
-         rubiksCube = new THREE.Object3D();
+         
           //rubiksCube.rotation.x = Math.PI/ 20;          
           scene.add(rubiksCube); 
 
@@ -168,7 +169,6 @@ class Roll {
      }
 
      function update() {
-          controls.update();
           analyser.getByteFrequencyData(dataArray);
           let frequency = dataArray[55] * 0.005;
           

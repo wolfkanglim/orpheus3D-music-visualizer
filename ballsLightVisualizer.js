@@ -1,5 +1,7 @@
 import * as THREE from './js/three.module.js';
 
+export let ballLightGroup = new THREE.Group(); 
+
 export function ballsLightVisualizer(scene, camera, renderer, dataArray, analyser){
    
      const geometry = new THREE.SphereGeometry(1, 10, 10);
@@ -33,7 +35,7 @@ export function ballsLightVisualizer(scene, camera, renderer, dataArray, analyse
                     const mesh = new THREE.Mesh(geometry, flag ? material1 : material2);
                     
                     mesh.position.set(x, y, z);
-                    ballGroup.add(mesh);
+                    ballLightGroup.add(mesh);
                     balls.push(mesh);
                     //scene.add(ballGroup);
                     //console.log(balls);
@@ -41,11 +43,11 @@ export function ballsLightVisualizer(scene, camera, renderer, dataArray, analyse
           }
           
      }
-     scene.add(ballGroup);
+     scene.add(ballLightGroup);
 
    
      function animate(){ 
-          //ballGroup.rotation.z += 0.01;     
+          //ballLightGroup.rotation.z += 0.01;     
           analyser.getByteFrequencyData(dataArray);
         
           

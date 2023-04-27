@@ -1,5 +1,8 @@
 import * as THREE from './js/three.module.js';
 
+export let groupCylinders = new THREE.Group();
+
+
 export function cylinderVisualizer(scene, camera, renderer, dataArray, analyser){
      let positions = [];
      const gutter = 2;
@@ -45,9 +48,9 @@ export function cylinderVisualizer(scene, camera, renderer, dataArray, analyser)
      // tiles cylinder//
 
      let tiles = [];
-     let group = new THREE.Group(); 
-     group.position.set(96, -25, 48);
-     group.rotation.y = -Math.PI / 2; 
+     let groupTiles = new THREE.Group(); 
+     groupTiles.position.set(96, -25, 48);
+     groupTiles.rotation.y = -Math.PI / 2; 
 
      for(let col = 0; col < cols; col++){
           positions[col] = [];
@@ -70,12 +73,12 @@ export function cylinderVisualizer(scene, camera, renderer, dataArray, analyser)
                }
 
                plane.position.set(pos.x, pos.y, pos.z);
-               group.add(plane);
+               groupTiles.add(plane);
                tiles.push(plane);
           }
      }
      positions = null;
-     scene.add(group);
+     groupCylinders.add(groupTiles);
 
      //pivot cylinders//
      let cylinder;
@@ -128,7 +131,8 @@ export function cylinderVisualizer(scene, camera, renderer, dataArray, analyser)
      cylinderPivot2.position.y = -12;
      cylinderPivot3.position.y = -24;
      cylinderPivot4.position.y = -36;
-     scene.add(cylinderPivot, cylinderPivot1,cylinderPivot2, cylinderPivot3, cylinderPivot4);
+     groupCylinders.add(cylinderPivot, cylinderPivot1,cylinderPivot2, cylinderPivot3, cylinderPivot4);
+     scene.add(groupCylinders);
 
 
      let scale = 0;

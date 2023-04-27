@@ -1,8 +1,9 @@
 import * as THREE from './js/three.module.js';
 import Stats from './js/stats.module.js';
-import {OrbitControls} from './js/OrbitControls.js';
 
-let orbitControls, stats;
+export const groupWaterBall = new THREE.Group(); ;
+
+let  stats;
 let sphere, uniforms;
 let displacement, noise;
 
@@ -11,9 +12,7 @@ export const waterBallVisualizer = function(scene, camera, renderer, dataArray, 
      stats = new Stats();
      //container.appendChild( stats.dom );
 
-     orbitControls = new OrbitControls(camera, renderer.domElement);
-     orbitControls.update();
-          
+               
      uniforms = {
           
           'amplitude': { value: 1.0 },
@@ -82,7 +81,8 @@ export const waterBallVisualizer = function(scene, camera, renderer, dataArray, 
      geometry.setAttribute( 'displacement', new THREE.BufferAttribute( displacement, 1 ) );
 
      sphere = new THREE.Mesh( geometry, shaderMaterial );
-     scene.add( sphere );
+     groupWaterBall.add( sphere );
+     scene.add( groupWaterBall );
 
     function animate() {         
          requestAnimationFrame( animate );

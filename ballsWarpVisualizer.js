@@ -1,5 +1,7 @@
 import * as THREE from './js/three.module.js';
 
+export let warpGroup = new THREE.Group(); 
+
 export function ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser){
    
      const geometry = new THREE.SphereGeometry(1, 10, 10);
@@ -33,7 +35,7 @@ export function ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser
                     const mesh = new THREE.Mesh(geometry, flag ? material1 : material2);
                     
                     mesh.position.set(x, y, z);
-                    ballGroup.add(mesh);
+                    warpGroup.add(mesh);
                     balls.push(mesh);
                     //scene.add(ballGroup);
                     //console.log(balls);
@@ -41,10 +43,10 @@ export function ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser
           }
           
      }
-     scene.add(ballGroup);
+     scene.add(warpGroup);
 
      function renderFrame(){ 
-          ballGroup.rotation.z += 0.01;     
+          warpGroup.rotation.z += 0.01;     
           analyser.getByteFrequencyData(dataArray);
          
           for(let i = 0; i < balls.length; i++){

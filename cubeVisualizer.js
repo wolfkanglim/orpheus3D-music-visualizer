@@ -1,5 +1,7 @@
 import * as THREE from './js/three.module.js';
 
+export const cubeGroup = new THREE.Object3D();
+
 
 export const cubeVisualizer = function (scene, camera, renderer, dataArray, analyser){
      const uniforms = {
@@ -23,7 +25,7 @@ export const cubeVisualizer = function (scene, camera, renderer, dataArray, anal
      let cube;
      let cubes = [];
      let count = 32;
-     const cubeGroup = new THREE.Object3D();
+     
 
      
      for(let i = 0; i < count / 4; i++){

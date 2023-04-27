@@ -3,6 +3,8 @@ import * as THREE from './js//three.module.js';
 import shaders from './src/shaders.js';
 import shadersPlane from './src/shadersPlane.js';
 
+export let plains = new THREE.Object3D();
+
 export const glslVisualizer = function(scene, camera, renderer, dataArray, analyser){
 
      const uniforms = {
@@ -68,7 +70,7 @@ export const glslVisualizer = function(scene, camera, renderer, dataArray, analy
      planeBottom.rotation.x = -Math.PI / 2;
      planeBottom.castShadow = true;
      planeBottom.receiveShadow = true;
-     scene.add(planeBottom);
+     plains.add(planeBottom);
 
      // planeTop.customDepthMaterial = depthMaterial;
      //but it does not working
@@ -76,7 +78,8 @@ export const glslVisualizer = function(scene, camera, renderer, dataArray, analy
      planeTop.rotation.x = -Math.PI / 2;
      planeTop.castShadow = true;
      planeTop.receiveShadow = true;
-     scene.add(planeTop);
+     plains.add(planeTop);
+     scene.add(plains);
 
 
      /////// Icosahedron  /////////// z????
