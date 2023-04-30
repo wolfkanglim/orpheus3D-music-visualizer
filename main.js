@@ -74,7 +74,7 @@ async function audioAnalyser(){
      analyser.fftSize = 512;
      let bufferLength = analyser.frequencyBinCount;
      dataArray = new Uint8Array(bufferLength);
-
+     audioCtx.resume();
    //canvas2 bar visualizer
     const canvas2 = document.getElementById('canvas2');
      const ctx = canvas2.getContext('2d');
