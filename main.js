@@ -695,6 +695,6 @@ gui.close();
 window.addEventListener('resize', function(){
      camera.aspect = canvas.width/canvas.height;
      camera.updateProjectionMatrix();
-     renderer.setSize(canvas.width, canvas.height);
      fitToContainer(canvas);
+     renderer.setSize(canvas.width, canvas.height);
 });
