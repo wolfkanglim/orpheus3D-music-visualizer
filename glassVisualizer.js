@@ -1,5 +1,5 @@
 import * as THREE from './js/three.module.js';
-import { TeapotGeometry } from '../js/TeapotGeometry.js';
+import { TeapotGeometry } from './js/TeapotGeometry.js';
 
 export const groupGlass = new THREE.Object3D(); 
 
