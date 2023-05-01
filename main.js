@@ -1,7 +1,7 @@
 import * as THREE from './js/three.module.js';
 //import {OrbitControls} from './js/OrbitControls.js';
 import { FlyControls } from './js/FlyControls.js';
-import {fileUpload, audioControls} from './audioControls.js';
+import {fileUpload} from './audioControls.js';
 
 import {icosahedronVisualizer, groupIcosahedron, rafIcosahedron} from './icosahedronVis.js';
 import {waterBallVisualizer, groupWaterBall} from './waterBallVisualizer.js';
@@ -47,10 +47,9 @@ let spotLight, spotLight2, ambientLight;
 
 ///// setup functions /////
 
-fitToContainer(canvas);
 fileUpload();
 audioAnalyser();
-audioControls();
+fitToContainer(canvas);
 initThree();
 
 
@@ -74,8 +73,8 @@ async function audioAnalyser(){
      analyser.fftSize = 512;
      let bufferLength = analyser.frequencyBinCount;
      dataArray = new Uint8Array(bufferLength);
-     audioCtx.resume();
-   //canvas2 bar visualizer
+
+     //canvas2 bar visualizer
     const canvas2 = document.getElementById('canvas2');
      const ctx = canvas2.getContext('2d');
      canvas2.width = 840;
@@ -123,26 +122,34 @@ async function audioAnalyser(){
      drawBarVisualizer();
      
      
+     //audio controls
 
-
-     /* const playBtn = document.getElementById('playBtn');
+      const playBtn = document.getElementById('playBtn');
      const stopBtn = document.getElementById('stopBtn');
      const pauseBtn = document.getElementById('pauseBtn');
 
-     playBtn.addEventListener('click', function(e){     
+     playBtn.addEventListener('click', (e) => {     
           e.preventDefault();
-          audioElement.play();
+          if(audioCtx.state === 'suspended') {
+               audioCtx.resume();
+               //.then()(() => {
+                    audioElement.play();
+               //})
+          } else if(audioCtx.state === 'running'){
+               audioElement.play();
+          }
      })
      stopBtn.addEventListener('click', (e) => {
           e.preventDefault();
           audioElement.pause();
+          audioElement.currentTime = 0;
      })
      pauseBtn.addEventListener('click', (e) => {
           e.preventDefault();
           audioElement.pause();
-     }) */
+     }) 
    
-      
+      console.log(audioCtx.state);
      ///// video recording ////////
      const recordBtn = document.getElementById('recordBtn');
      const stopRecordBtn = document.getElementById('stopRecordBtn');
