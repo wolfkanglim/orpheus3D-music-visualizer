@@ -1,7 +1,7 @@
 import * as THREE from './js/three.module.js';
 //import {OrbitControls} from './js/OrbitControls.js';
 import { FlyControls } from './js/FlyControls.js';
-import {fileUpload} from './audioControls.js';
+import {fileUpload, audioControls} from './audioControls.js';
 
 import {icosahedronVisualizer, groupIcosahedron, rafIcosahedron} from './icosahedronVis.js';
 import {waterBallVisualizer, groupWaterBall} from './waterBallVisualizer.js';
@@ -48,6 +48,7 @@ let spotLight, spotLight2, ambientLight;
 ///// setup functions /////
 
 fileUpload();
+audioControls();
 audioAnalyser();
 fitToContainer(canvas);
 initThree();
@@ -132,9 +133,7 @@ async function audioAnalyser(){
           e.preventDefault();
           if(audioCtx.state === 'suspended') {
                audioCtx.resume();
-               //.then()(() => {
-                    audioElement.play();
-               //})
+               audioElement.play();
           } else if(audioCtx.state === 'running'){
                audioElement.play();
           }
@@ -266,7 +265,7 @@ function initThree(){
 
      // Camera FlyControls programmed movement //
      document.getElementById('bg_fly').addEventListener('click', () => {
-          let tl = gsap.timeline({repeat: 3, repeatDelay: 3});
+          let tl = gsap.timeline({repeat: 2, repeatDelay: 3});
           tl.to(camera.position, {z: 500, duration:12});
           tl.to(camera.position, {z: 100, duration:6});
           tl.to(camera.rotation, {z: Math.PI, duration: 8});
@@ -288,7 +287,7 @@ function initThree(){
      })
 
      document.getElementById('bg_fly2').addEventListener('click', () => {
-          let tl = gsap.timeline({repeat: 3, repeatDelay: 3});
+          let tl = gsap.timeline({repeat: 2, repeatDelay: 3});
           tl.to(camera.position, {z: 10, duration:12});
           tl.to(camera.position, {z: 100, duration:6});
           tl.to(camera.rotation, {z: Math.PI, duration: 8});
@@ -705,3 +704,8 @@ window.addEventListener('resize', function(){
      fitToContainer(canvas);
      renderer.setSize(canvas.width, canvas.height);
 });
+
+const resetBtn = document.getElementById('reset_btn');
+resetBtn.addEventListener('click', () => {
+     window.location.reload();
+})

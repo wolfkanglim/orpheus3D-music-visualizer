@@ -2,116 +2,133 @@
 export function fileUpload(){
      const file = document.getElementById('file_upload');
      file.addEventListener('change', function(){
-          const files = this.files;
-          audio1.src = URL.createObjectURL(files[0]);
-          audio1.load();
+       const files = this.files;
+       audio1.src = URL.createObjectURL(files[0]);
+       audio1.load();
+       document.getElementById('track-name').innerHTML = `<span>${files[0].name.split('.').slice(0, files[0].name.split('.').length - 1).join('')}</span>`
      });
 }
-
-///// audio setup /////
-
-/*  
-export function audioVisualizer(){
    
- //////////////////////////
+export function audioControls(){    
+     const audioElement = document.getElementById('audio1')
+     // progress bar
+     const progressBar = document.getElementById('playbar-progress')
+     const timeProgress = document.getElementById('time-progress')
+     const timeLeft = document.getElementById('time-left')
 
-      const audioCtx = new AudioContext();
-     analyser = audioCtx.createAnalyser();
-     audioSource = audioCtx.createMediaElementSource(audioElement);
-     audioSource.connect(analyser);
-     analyser.connect(audioCtx.destination);
-     analyser.fftSize = 512;
-     let bufferLength = analyser.frequencyBinCount;
-     dataArray = new Uint8Array(bufferLength); 
+     // progress bar //
+     const updateDisplayTime = () => {
+          progressBar.style.width = `${(audioElement.currentTime / audioElement.duration) * 100}%`
+          timeProgress.innerHTML = `<span>${formatTime(audioElement.currentTime, audioElement.duration)}</span>`
+          timeLeft.innerHTML = `<span>${formatTime(audioElement.duration - audioElement.currentTime, audioElement.duration)}</span>`
+     }
 
-     const playBtn = document.getElementById('playBtn');
-     const stopBtn = document.getElementById('stopBtn');
-     const pauseBtn = document.getElementById('pauseBtn');
+          
+     setInterval(() => {
+          if (audioElement.src !== '') {
+          updateDisplayTime()
+          } else {
+          timeProgress.innerHTML = ''
+          timeLeft.innerHTML = ''
+          progressBar.style.width = '0%'
+          }
+     }, 500) 
 
-     playBtn.addEventListener('click', function(e){     
-          e.preventDefault();
-          //audio1.play();
-          //audioElement.play();
-          audioTrack.play();
-     })
-     stopBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          //audioElement.pause();
-          audioTrack.stop();
-     })
-     pauseBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          //audioElement.pause();
-          audioTrack.pause();
-     })
+     // volume bar controls
+     const range = document.querySelector(".volume input[type=range]");
 
-     ///// video recording ////////
-     const recordBtn = document.getElementById('recordBtn');
-     const stopRecordBtn = document.getElementById('stopRecordBtn');
-     let recording = false;
-     let mediaRecorder;
-     let recordedChunks = [];
+     const barHoverBox = document.querySelector(".volume .bar-hoverbox");
+     const fill = document.querySelector(".volume .bar .bar-fill");
+          
+     range.addEventListener("change", (e) => {
+          console.log("value", e.target.value);
+          audioElement.volume = e.target.value / 100;
+     });
 
-     recordBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          let dest = audioCtx.createMediaStreamDestination();
-          audioSource.connect(dest);
-          let audioTrack = dest.stream.getAudioTracks()[0];
-          recording = !recording;
-          if(recording){
-               recordBtn.innerText = "recordings...";
-               const canvasStream = canvas.captureStream(60);
-               mediaRecorder = new MediaRecorder(canvasStream, {
-                    mimeType: 'video/webm;codecs=vp9'
-               })
-               canvasStream.addTrack(audioTrack);
-               mediaRecorder.ondataavailable = e => {
-                    if(e.data.size > 0){
-                         recordedChunks.push(e.data);
-                    }
-               }
-               mediaRecorder.start();
+     const setValue = (value) => {
+          fill.style.width = value + "%";
+          range.setAttribute("value", value)
+          range.dispatchEvent(new Event("change"))
+     }
+          
+     setValue(range.value);
+          
+     const calculateFill = (e) => {
+          let offsetX = e.offsetX;    
+          if (e.type === "touchmove") {
+          offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
+          }
+          
+          const width = e.target.offsetWidth - 30;
+
+          setValue(
+          Math.max(
+               Math.min(
+               (offsetX - 15) / width * 100.0,
+               100.0
+               ),
+               0
+          )
+          );
+     }
+          
+     let barStillDown = false;
+
+     barHoverBox.addEventListener("touchstart", (e) => {
+          barStillDown = true;
+
+          calculateFill(e);
+     }, true);
+
+     barHoverBox.addEventListener("touchmove", (e) => {
+          if (barStillDown) {
+          calculateFill(e);
+          }
+     }, true);
+          
+     barHoverBox.addEventListener("mousedown", (e) => {
+          barStillDown = true;
+          
+          calculateFill(e);
+     }, true);
+          
+     barHoverBox.addEventListener("mousemove", (e) => {
+          if (barStillDown) {
+          calculateFill(e);
           }
      });
-
-     stopRecordBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          recordBtn.innerText = "Start Record";
-          mediaRecorder.stop();
-          setTimeout((e) => {
-               const blob = new Blob(recordedChunks, {
-                    type: 'video/webm'
-               })
-               const url = URL.createObjectURL(blob);
-               const a = document.createElement('a');
-               a.href = url;
-               a.download = 'recording.webm';
-               a.click();
-               url.revokeObjectURL(url);
-          }, 100);
+          
+     barHoverBox.addEventListener("wheel", (e) => {
+          const newValue = +range.value + e.deltaY * 0.5;
+          
+          setValue(Math.max(
+          Math.min(
+               newValue,
+               100.0
+          ),
+          0
+          ))
      });
-}
-*/
+          
+     document.addEventListener("mouseup", (e) => {
+          barStillDown = false;
+     }, true);
 
-
-export function audioControls(){ 
-     
-     const audioElement = document.getElementById('audio1')
-     const playBtn = document.getElementById('playBtn');
-     const stopBtn = document.getElementById('stopBtn');
-     const pauseBtn = document.getElementById('pauseBtn');
-
-     playBtn.addEventListener('click', function(e){     
-          e.preventDefault();
-          audioElement.play();
-     })
-     stopBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          audioElement.pause();
-     })
-     pauseBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          audioElement.pause();
-     })
+     document.addEventListener("touchend", (e) => {
+          barStillDown = false;
+     }, true);
 
 } 
+
+//more utility function
+function formatTime(currentTime, duration){
+if (isNaN(currentTime) || isNaN(duration)) {
+     currentTime = 0
+     duration = 0
+}
+const roundedTime = Math.floor(currentTime)
+const hours = Math.floor(roundedTime / 3600)
+const minutes = Math.floor((roundedTime - (hours * 3600)) / 60)
+const seconds = roundedTime - (hours * 3600) - (minutes * 60)
+return ((duration >= 3600 ? (hours + ':') : '') + (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds))
+}

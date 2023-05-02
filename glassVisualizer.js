@@ -5,11 +5,11 @@ export const groupGlass = new THREE.Object3D();
 
 
 export function glassVisualizer(scene, camera, renderer, dataArray, analyser){
-     new THREE.TextureLoader().load('./assets/textures/space-background.jpg', texture => {
+     /* new THREE.TextureLoader().load('./assets/textures/space-background.jpg', texture => {
           const renderTarget = new THREE.WebGLCubeRenderTarget(texture.image.height);
           renderTarget.fromEquirectangularTexture(renderer, texture);
           scene.background = renderTarget.texture;
-     });
+     }); */
      const renderTargetOptions = {
           format: THREE.RGBAFormat,
           generateMipmaps: true,
