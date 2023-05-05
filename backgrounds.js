@@ -28,8 +28,8 @@ export const spaceRed = loader.load([
 export const gloomy = loader.load([
      'gloomy_skybox/gloomy_ft.png', 
      'gloomy_skybox/gloomy_bk.png', 
-     'gloomy_skybox/gloomy_up.png', 
      'gloomy_skybox/gloomy_dn.png', 
+     'gloomy_skybox/gloomy_up.png', 
      'gloomy_skybox/gloomy_rt.png', 
      'gloomy_skybox/gloomy_lf.png', 
 ]);
@@ -41,6 +41,33 @@ export const pereaBeach = loader.load([
      'PereaBeach1/negy.jpg', 
      'PereaBeach1/posz.jpg', 
      'PereaBeach1/negz.jpg', 
+]);
+
+export const utopia = loader.load([
+     'utopia/utopia_ft.png', 
+     'utopia/utopia_bk.png', 
+     'utopia/utopia_up.png', 
+     'utopia/utopia_dn.png', 
+     'utopia/utopia_rt.png', 
+     'utopia/utopia_lf.png', 
+     
+]);
+export const sp = loader.load([
+     'sp/sp_ft.jpg', 
+     'sp/sp_bk.jpg', 
+     'sp/sp_up.jpg', 
+     'sp/sp_dn.jpg', 
+     'sp/sp_rt.jpg', 
+     'sp/sp_lf.jpg',      
+]);
+
+export const weltraum = loader.load([
+     'weltraum/weltraum_rt.png', 
+     'weltraum/weltraum_lf.png', 
+     'weltraum/weltraum_top.png', 
+     'weltraum/weltraum_dn.png', 
+     'weltraum/weltraum_ft.png', 
+     'weltraum/weltraum_bk.png', 
 ]);
 
 ///// hdr backgrounds
