@@ -75,7 +75,7 @@ h3 {
   position: relative;
   grid-column: 1 / 4;
   grid-row: 2 / 13;  
-  min-width: 480px;
+  min-width: 640px;
   max-width: 1080px;
   background-color: #222;     
   border: 1px solid #ddd; 
@@ -91,87 +91,121 @@ h3 {
   width: 100%;  
 }
 
-.control-container {  
+.background-container {  
   grid-column: 4 / 5;
-  grid-row: 3 / 6;  
+  grid-row: 3 / 4;  
   background-color: #222;
   color: white;
   padding: 3px; 
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-around;
-  margin: 0 5px;
+  margin: 1px 4px;
   padding: 3px;
- 
+  border-radius: 5px;  
 }
 fieldset {
-  border: 1.5px solid #fff;
+  border-top: 1px solid #fff;
   border-radius: 5px;
 }
 legend{
-  font-size: 12px;
+  font-size: 9px;
 }
 
 .bg_btn, .select-btn {
-  font-size: 10px;
+  font-size: 9px;
   margin: 1px;
-  padding: 3px;
-  width: 22%;
-  height: 29.0%;
+  padding: 2px;
+  width: 21.50%;
+  /* height: 28.0%; */
   color: rgba(250, 250, 250, 0.75);
-  background-color: #222;
-  border: 1.4px solid #aaa;
+  /* background-color: #222; */
+  border: 1px solid #aaa;
   border-radius: 5px;
   cursor: pointer;
   transition: all .2s;
 }
  .bg_btn:hover, .select-btn:hover {
   border: 1.5px solid #fff;
-  font-size: 10px;
+  font-size: 9px;
   color: #fff;
   background-color:rgb(62, 7, 245)
 
 } 
 
+.center-container{
+  grid-column: 4 / 5;
+  grid-row: 4 / 5;  
+  background-color: #222;
+  color: white;
+  padding: 3px; 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 1px 4px;
+  padding: 3px;
+  border-radius: 5px;  
+
+}
+.particle-container{
+  grid-column: 4 / 5;
+  grid-row: 5 / 6;  
+  background-color: #222;
+  color: white;
+  padding: 3px; 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 1px 4px;
+  padding: 3px;   
+  border-radius: 5px;  
+
+}
+
 
 .waveform-container {
   position: relative;
   grid-column: 4 / 5;
-  grid-row: 6 / 10;
+  grid-row: 6 / 9;
   background-color: #222;  
   color: white;
-  margin: 0 5px;
+  margin: 1px 4px;
   padding: 3px;  
   display: flex;
   flex-wrap: wrap;
   justify-content:space-between;
   align-items:center;
+  border-radius: 5px;  
+
 }
 
 .select-btn {
-  font-size: 10px;
+  font-size: 9px;
   margin: 1px;
   padding: 3px;
-  width: 22%;
-  height: 22.0%;
-  color: rgba(250, 250, 250, 0.75);
-  background-color: #222;
-  border: 1.4px solid #aaa;
+  width: 21.5%;
+  /* height: 22.0%; */
+  color: rgba(250, 250, 250, 0.7);
+  /* background-color: #222; */
+  border: 1px solid #aaa;
   border-radius: 5px;
   cursor: pointer;
   transition: all .2s;
 }
 
-.active-bg{
-  border: 1.6px solid #fff;
-  color: #fff;
-  background-color: #05ff05;
-}
+.control-container{
+  grid-column: 4 / 5;
+  grid-row: 9 / 10;  
+  background-color: #222;
+  color: white;
+  padding: 3px; 
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  margin: 1px 4px;
+  padding: 3px;
+  border-radius: 5px;  
 
-.fly_btn {
-  background-color: #b5f409;
-  color: #222;
-  border-radius: 50%;
 }
 
 .music-container {
@@ -179,11 +213,11 @@ legend{
   grid-column: 4 / 5;
   grid-row: 10 / 12;   
   padding: 3px;
-  margin: 0 5px;
+  margin: 1px 4px;
   font-size: 12px;
    background-color: #222;
-  border: 1.5px solid rgb(254, 253, 253);
-  border-radius: 5px;  
+   border: 1px solid #aaa;
+   border-radius: 5px;  
   display: flex;
   flex-direction: column;
   justify-content:space-between;
@@ -216,7 +250,7 @@ legend{
   border: 2px solid #fff;
 }
 .control-buttons {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -227,7 +261,7 @@ legend{
 .record-buttons {
   position: relative;
   margin-top: 3px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -263,7 +297,7 @@ legend{
   background-color: darkslateblue;
   border-radius: 5px;
   width: 100%;
-  margin: 5px;
+  margin: 1px 4px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -293,23 +327,21 @@ legend{
 #bg_gloomy{
   background-image: url('./assets/textures/gloomy_skybox/gloomy_ft.png');
   background-size: cover;
-  background-repeat: no-repeat;
-  
+  background-repeat: no-repeat;  
 }
+#bg_sp{
+  background-image: url('./assets/textures/sp/sp_bk.jpg');
+  background-size: cover;
+  background-repeat:no-repeat;
+}    
+#bg_weltraum{
+  background-image: url('./assets/textures/weltraum/weltraum_rt.png');
+  background-size: cover;
+  background-repeat:no-repeat;
+}   
+
 #bg_perea{
   background-image: url('./assets/textures/pereaBeach1/posz.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  
-}
-#bg_storm{
-  background-image: url('./assets/textures/pereaBeach1/posx.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  
-}
-#bg_studio{
-  background-image: url('./assets/textures/pereaBeach1/posy.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   
@@ -317,96 +349,117 @@ legend{
 
 #bg_icosahedron{
   background-image: url('./assets/images/icosahedron.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   
 }
 #bg_water-ball{
   background-image: url('./assets/images/waterball2.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 #bg_disc {
   background-image: url('./assets/images/disc.png');  
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 #bg_rubiks{
   background-image: url('./assets/images/rubikscube.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 #plane_btn{
   background-image: url('./assets/images/planes.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #sphere_btn{
   background-image: url('./assets/images/sphere-ring.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #cube_btn{
   background-image: url('./assets/images/cube.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #cylinder_btn{
   background-image: url('./assets/images/cylinder.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #glsl_btn{
   background-image: url('./assets/images/terrain.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #glass_btn{
   background-image: url('./assets/images/glass.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #instances_btn{
   background-image: url('./assets/images/instances.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #particles_btn{
   background-image: url('./assets/images/bigbang.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #balls_btn{
   background-image: url('./assets/images/balls2.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #lights_btn{
   background-image: url('./assets/images/lights.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #warp_btn{
   background-image: url('./assets/images/warp.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #water_btn{
   background-image: url('./assets/images/watercolor.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #liquid_btn{
   background-image: url('./assets/images/liquid.png');
-  background-size: contain;
+  background-size: cover;
+  background-repeat:no-repeat;
+}    
+#paper_btn{
+  background-image: url('./assets/images/paper-planes.png');
+  background-size: cover;
   background-repeat:no-repeat;
 }    
 #line-sphere_btn{
   background-image: url('./assets/images/linesphere.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat:no-repeat;
 }    
+#spark_btn{
+  background-image: url('./assets/images/spark-particles.png');
+  background-size: cover;
+  background-repeat:no-repeat;
+}    
+ 
 
+.active-bg{
+  border: 1.75px solid #87f187;
+  color: #fff;
+}
+
+.fly_btn {
+  background-color: #b5f409;
+  color: #222;
+  border-radius: 50%;
+}
 #canvas2{
   position: absolute;
   bottom: 1%;
@@ -424,7 +477,7 @@ legend{
   width: 98%;
   font-size: 11px;
   background-color: #222;
-  border: 1px solid white;
+  border: 1px solid #aaa;
   margin: 0 2px;
   padding: 6px;  
 }
@@ -537,8 +590,8 @@ legend{
   width: 62%;
   background-color: rgba(255, 255, 255, 0.4);
   border-radius: 3px;
-  border: 1px solid rgba(140, 250, 250, 0.5);
-  border: 1px solid red;
+/*   border: 1px solid rgba(140, 250, 250, 0.5);
+ */  border: 1px solid red;
   position: relative;    
   transition: 0.2s;
   z-index: 10;
@@ -627,7 +680,8 @@ input[type=range] {
   cursor: pointer;
 }
 .bar {
-  background: #999;
+  background-color: rgba(255, 255, 255, 0.5);
+
   border: 1px solid red;
   height: 8px;
   border-radius: 5px;

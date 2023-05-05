@@ -2,6 +2,7 @@ import * as THREE from './js/three.module.js';
 //import {OrbitControls} from './js/OrbitControls.js';
 import { FlyControls } from './js/FlyControls.js';
 import {fileUpload, audioControls} from './audioControls.js';
+import {spaceBlue, spaceRed, gloomy, pereaBeach, utopia, storm, sp, weltraum} from './backgrounds.js';
 
 import {icosahedronVisualizer, groupIcosahedron, rafIcosahedron} from './icosahedronVis.js';
 import {waterBallVisualizer, groupWaterBall} from './waterBallVisualizer.js';
@@ -19,18 +20,18 @@ import {particlesVisualizer, particleGroup} from './particlesVisualizer.js';
 import { ballsVisualizer, ballGroup } from './ballsVisualizer.js';
 import { ballsLightVisualizer, ballLightGroup } from './ballsLightVisualizer.js';
 import { ballsWarpVisualizer, warpGroup } from './ballsWarpVisualizer.js';
-import {spaceBlue, spaceRed, gloomy, pereaBeach, storm, photoStudio} from './backgrounds.js';
 //import {marchVisualizer} from './marchVisualizer.js';
 import {waterPaintVisualizer, sphereObj} from './waterPaintVisualizer.js';
 import { liquidCubeVisualizer, effectObj} from './liquidCubeVisualizer.js';
 import {lineSphereVisualizer, rafId, lineGroup} from './lineSphereVisualizer.js'; 
-
+import {paperPlaneVisualizer, paperPlanes} from './paperPlaneVisualizer.js';
+import {sparkVisualizer, sparkParticles} from './sparkVisualizer.js';
 ///// variables /////
 
 const canvas = document.getElementById('canvas1');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;  
+// canvas.width = window.innerWidth;
+// canvas.height = window.innerHeight;  
 
 const gui = new dat.GUI();
 gui.domElement.id = 'gui';
@@ -42,6 +43,7 @@ let dataArray = [];
 
 let scene, camera, renderer;
 //let orbitCamera;
+let intensity = 1;
 let flyCamera;
 let spotLight, spotLight2, ambientLight;
 
@@ -49,8 +51,8 @@ let spotLight, spotLight2, ambientLight;
 
 fileUpload();
 audioControls();
-audioAnalyser();
 fitToContainer(canvas);
+audioAnalyser();
 initThree();
 
 
@@ -74,11 +76,11 @@ async function audioAnalyser(){
      analyser.fftSize = 512;
      let bufferLength = analyser.frequencyBinCount;
      dataArray = new Uint8Array(bufferLength);
-
-     //canvas2 bar visualizer
+     //audioCtx.resume();
+   //canvas2 bar visualizer
     const canvas2 = document.getElementById('canvas2');
      const ctx = canvas2.getContext('2d');
-     canvas2.width = 840;
+     canvas2.width = canvas.width;
      canvas2.height = 80;
          
      let x;
@@ -131,25 +133,27 @@ async function audioAnalyser(){
 
      playBtn.addEventListener('click', (e) => {     
           e.preventDefault();
-          if(audioCtx.state === 'suspended') {
-               audioCtx.resume();
-               audioElement.play();
+          if(audioCtx.state === 'suspended'){
+               audioCtx.resume().then(() => {
+                    audioElement.play();
+               })
           } else if(audioCtx.state === 'running'){
                audioElement.play();
-          }
+          }          
      })
      stopBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          audioElement.pause();
           audioElement.currentTime = 0;
+          audioElement.pause();
      })
      pauseBtn.addEventListener('click', (e) => {
           e.preventDefault();
           audioElement.pause();
      }) 
    
-      console.log(audioCtx.state);
+     
      ///// video recording ////////
+    
      const recordBtn = document.getElementById('recordBtn');
      const stopRecordBtn = document.getElementById('stopRecordBtn');
      let recording = false;
@@ -164,11 +168,13 @@ async function audioAnalyser(){
           recording = !recording;
           if(recording){
                recordBtn.innerText = "recordings...";
-               const canvasStream = canvas.captureStream(60);
+               
+                const canvasStream = canvas.captureStream(60);
                mediaRecorder = new MediaRecorder(canvasStream, {
                     mimeType: 'video/webm;codecs=vp9'
                })
-               canvasStream.addTrack(audioTrack);
+               canvasStream.addTrack(audioTrack); 
+               
                mediaRecorder.ondataavailable = e => {
                     if(e.data.size > 0){
                          recordedChunks.push(e.data);
@@ -204,9 +210,9 @@ function initThree(){
     scene.background = spaceBlue;
      camera = new THREE.PerspectiveCamera(
      75,
-     canvas.width / canvas.height,
+     1920 / 1080,
      0.1,
-     2000
+     10000
      )
      camera.position.set(0, 0, 50);
      camera.lookAt(0, 0, 0);
@@ -215,7 +221,7 @@ function initThree(){
           canvas: canvas,
           antialias: true
      })
-     renderer.outputEncoding = THREE.sRGBEncoding;
+     //renderer.outputEncoding = THREE.sRGBEncoding;
      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
      renderer.setPixelRatio(window.devicePixelRatio);
      renderer.shadowMap.enabled = true;
@@ -229,7 +235,7 @@ function initThree(){
      flyCamera.dragToLook = true;
   
      ///// lights /////
-     ambientLight = new THREE.AmbientLight(0x222222, 0.51);
+     ambientLight = new THREE.AmbientLight(0x555555, 0.51);
      scene.add(ambientLight);
 
      spotLight = new THREE.SpotLight(0xffffff, 0.51);
@@ -240,7 +246,8 @@ function initThree(){
      spotLight.castShadow = true;
      spotLight2.castShadow = true;
      spotLight2.angle = Math.PI / 18;
-     scene.add(spotLight, spotLight2);
+     scene.add(spotLight); 
+     scene.add(spotLight2); 
 
      const pointLight = new THREE.PointLight(0xffffff, 0.51);
      const pointLight2 = new THREE.PointLight(0xffffff, 0.51);
@@ -251,17 +258,9 @@ function initThree(){
      const dirLight = new THREE.DirectionalLight(0x444444);
      dirLight.position.set(0, 1000, -500);
      dirLight.castShadow = true;
-     scene.add(dirLight);
+     //scene.add(dirLight);
      
     
-     const clock = new THREE.Clock();
-     function basicRenderFrame(){
-          let deltaTime = clock.getDelta();    
-          flyCamera.update(deltaTime);
-          renderer.render(scene, camera);
-          requestAnimationFrame(basicRenderFrame);
-     }
-     basicRenderFrame();
 
      // Camera FlyControls programmed movement //
      document.getElementById('bg_fly').addEventListener('click', () => {
@@ -307,6 +306,16 @@ function initThree(){
           tl.to(camera.rotation, {y: Math.PI * 0, duration:4});  
           tl.to(camera.position, {z: 50, duration:6});      
      })
+
+     
+     const clock = new THREE.Clock();
+     function basicRenderFrame(){
+          let deltaTime = clock.getDelta();    
+          flyCamera.update(deltaTime);
+          renderer.render(scene, camera);
+          requestAnimationFrame(basicRenderFrame);
+     }
+     basicRenderFrame();
 };
 
 ///// Select Backgrounds /////
@@ -315,8 +324,8 @@ const blueBtn = document.getElementById('bg_blue');
 const redBtn = document.getElementById('bg_red');
 const gloomyBtn = document.getElementById('bg_gloomy');
 const pereaBtn = document.getElementById('bg_perea');
-const stormBtn = document.getElementById('bg_storm');
-const studioBtn = document.getElementById('bg_studio');
+const weltraumBtn = document.getElementById('bg_weltraum');
+const spBtn = document.getElementById('bg_sp');
 
 let selectedBg = 'spaceBlue';
 
@@ -339,21 +348,23 @@ const bgObj = {
           prev: 'spaceRed',
           next: 'pereaBeach',
      },
-     pereaBeach: {
+     
+      pereaBeach: {
           button: pereaBtn,
           bg: pereaBeach,
           prev: 'gloomy',
           next: 'storm',
-     },
-     storm: {
-          button: stormBtn,
-          bg: storm,
+     }, 
+
+     weltraum: {
+          button: weltraumBtn,
+          bg: weltraum,
           prev: 'pereaBeach',
           next: 'photoStudio',
      },
-     photoStudio: {
-          button: studioBtn,
-          bg: photoStudio,
+     sp: {
+          button: spBtn,
+          bg: sp,
           prev: 'storm',
           next: 'spaceBlue',
      },
@@ -373,10 +384,10 @@ const switchBg = (newBg) => {
 
 blueBtn.onclick = () => {switchBg('spaceBlue')}
 redBtn.onclick = () => {switchBg('spaceRed')}
-gloomyBtn.onclick = () => {switchBg('gloomy')}
-pereaBtn.onclick = () => {switchBg('pereaBeach')}
-stormBtn.onclick = () => {switchBg('storm')}
-studioBtn.onclick = () => {switchBg('photoStudio')}
+//gloomyBtn.onclick = () => {switchBg('gloomy')}
+//pereaBtn.onclick = () => {switchBg('pereaBeach')}
+weltraumBtn.onclick = () => {switchBg('weltraum')}
+spBtn.onclick = () => {switchBg('sp')}
 
 ////////// Select Center Visualizer ///////////
 
@@ -389,9 +400,12 @@ icosahedronBtn.addEventListener('click', visualizerIcosahedron);
 let isIcosahedronOn = false;
 function visualizerIcosahedron(){
      if(isIcosahedronOn){
+         
           groupIcosahedron.parent.remove(groupIcosahedron);
           isIcosahedronOn = false;
           icosahedronBtn.classList.remove('active-bg');
+        
+          
      } else {
           icosahedronVisualizer(scene, camera, renderer, dataArray, analyser);
           isIcosahedronOn = true;
@@ -457,6 +471,8 @@ const warpBtn = document.getElementById('warp_btn');
 const waterPaintBtn = document.getElementById('water_btn');
 const liquidBtn = document.getElementById('liquid_btn');
 const lineSphereBtn = document.getElementById('line-sphere_btn');
+const paperBtn = document.getElementById('paper_btn');
+const sparkBtn = document.getElementById('spark_btn');
 
 sphereBtn.addEventListener('click', visualizerSphere);
 cubeBtn.addEventListener('click', visualizerCube);
@@ -473,6 +489,13 @@ warpBtn.addEventListener('click', visualizerWarp);
 waterPaintBtn.addEventListener('click', visualizerWaterPaint);
 liquidBtn.addEventListener('click', visualizerLiquidCube);
 lineSphereBtn.addEventListener('click', visualizerLineSphere);
+paperBtn.addEventListener('click', visualizerPaperPlane);
+sparkBtn.addEventListener('click', visualizerSpark);
+
+// add new visualizer
+//paperPlaneVisualizer(scene, camera, renderer)
+//sparkVisualizer(scene, camera, renderer);
+
 
 let isSphereOn = false;
 function visualizerSphere(){
@@ -657,13 +680,40 @@ function visualizerLineSphere(){
           lineSphereBtn.classList.add('active-bg');
      }
 }
+console.log(paperPlanes);
+let isPaperOn = false;
+function visualizerPaperPlane(){
+     if(isPaperOn){
+          paperPlanes.parent.remove(paperPlanes);
+          isPaperOn = false;
+          paperBtn.classList.remove('active-bg');
+     } else {
+          isPaperOn = true;
+          paperPlaneVisualizer(scene, camera, renderer, dataArray, analyser);
+          paperBtn.classList.add('active-bg');
+     }
+}
+
+console.log(paperPlanes);
+let isSparkOn = false;
+function visualizerSpark(){
+     if(isSparkOn){
+          sparkParticles.parent.remove(sparkParticles);
+          isSparkOn = false;
+          sparkBtn.classList.remove('active-bg');
+     } else {
+          isSparkOn = true;
+          sparkVisualizer(scene, camera, renderer, dataArray, analyser);
+          sparkBtn.classList.add('active-bg');
+     }
+}
 
 // need to delete visualizer functions due to cpu memory usage.
 // slowed down it get repeated after selections
-////////
  
 
-//// info modal ////
+///// info modal /////
+
 const modal = document.getElementById('info_modal');
 const modalBtn = document.getElementById("modal_btn");
 const span = document.getElementById('close');
@@ -685,9 +735,8 @@ span.addEventListener('click', () => {
      modalBtn.innerText = 'Info ?';    
 })
 
-//////////
  
-/////// dat GUI //////////////////////////////
+///// dat GUI ///// can be moved to visualizer file//////
 const cameraFolder = gui.addFolder('Camera Movement');
 cameraFolder.add(camera.position, "z", -200, 500, 0.1).name('ZOOM Z');
 cameraFolder.add(camera.position, "x", -1000, 1000, 0.1).name('ZOOM X');
@@ -699,11 +748,48 @@ lightnessFolder.add(spotLight, 'intensity', 0, 10, 0.1).name('Spot Light');
 gui.close();
 
 window.addEventListener('resize', function(){
-     camera.aspect = canvas.width/canvas.height;
-     camera.updateProjectionMatrix();
+     camera.aspect = 1920/1080;
      fitToContainer(canvas);
+     camera.updateProjectionMatrix();
      renderer.setSize(canvas.width, canvas.height);
 });
+
+
+/////stop function
+// use raf cancelRequestAnimation 
+/* 
+     const timeElem = document.querySelector("#time");
+     let requestId;
+     function animate(time) {
+          requestId = undefined;    
+          doStuff here...(time) animations
+          start();
+     }
+
+     function start() {
+          if (!requestId) {
+               requestId = window.requestAnimationFrame(animate);
+          }
+     }
+
+     function stop() {
+          if (requestId) {
+               window.cancelAnimationFrame(requestId);
+               requestId = undefined;
+          }
+     }
+
+      
+     //visualizer btn
+     document.querySelector("#start").addEventListener('click', function() {
+          start();
+     });
+
+     //stop btn = resetBtn
+     document.querySelector("#stop").addEventListener('click', function() {
+          stop();
+     });
+*/
 
 const resetBtn = document.getElementById('reset_btn');
 resetBtn.addEventListener('click', () => {

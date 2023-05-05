@@ -8,7 +8,7 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js" integrity="sha512-WoO4Ih0CDOSLYafy22wZD/mcJ7k0ESLqtQsFa6zFKnEUrbtuGU+GkLtVhgt93xa2qewG5gKEC6CWlN8OaCTSVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
      <link rel="stylesheet" href="./style.css">
-     <link rel="shortcut icon" href="#">
+     <link rel="shortcut icon" href="/#">
 </head>
 <body>
      <div class="wrapper">
@@ -51,47 +51,70 @@
                </canvas>
           </div>
           <canvas id="canvas2"></canvas>   
-          <div class="info control-container"> 
+
+          <div class="background-container"> 
                <fieldset>
                     <legend>Select Background</legend>          
-                    <button class="bg_btn active-bg" id="bg_blue" data="blue">Blue Space</button>
-                    <button class="bg_btn" id="bg_red" data="red">Red Space</button>              
-                    <button class="bg_btn" id="bg_gloomy" data="gloomy">Sky Gloomy</button>
-                    <button class="bg_btn" id="bg_perea" data="perea">Lake Shore</button>
-                    <button class="bg_btn" id="bg_storm" data="storm">Spring Field</button>
-                    <button class="bg_btn" id="bg_studio" data="studio">Home Studio</button>
-                    <button class="bg_btn fly_btn" id="bg_fly">camera 1</button>
-                    <button class="bg_btn fly_btn" id="bg_fly2"> camera 2</button>        
-                    <button class="bg_btn selected" id="bg_icosahedron">Solar Icosa</button>         
-                    <button class="bg_btn" id="bg_water-ball">Water Ball</button>         
-                    <button class="bg_btn" id="bg_disc">Disc Ball</button>         
-                    <button class="bg_btn" id="bg_rubiks">Rubik's Cube</button>   
+                    <button class="bg_btn active-bg" id="bg_blue" data="blue">Blue Galaxy</button>
+                    <button class="bg_btn" id="bg_red" data="red">Bloody Space</button>              
+                   <!--  <button class="bg_btn" id="bg_gloomy" data="gloomy">Sky Gloomy</button>
+                    <button class="bg_btn" id="bg_perea" data="perea">Lake Shore</button> -->
+                    <button class="bg_btn" id="bg_weltraum" data="weltraum">Weltraum Space</button>
+                    <button class="bg_btn" id="bg_sp" data="sp">Moon Space</button>
+                   
+                    
           </fieldset>      
+          </div>
+          <div class="center-container">
+               <fieldset>
+                    <legend>Select Center Effect - Toggle On/Off</legend>
+                    <button class="bg_btn selected" id="bg_icosahedron">Icosa- hedron</button>         
+                         <button class="bg_btn" id="bg_water-ball">Flubber Ball</button>         
+                         <button class="bg_btn" id="bg_disc">Disc Sphere</button>         
+                         <button class="bg_btn" id="bg_rubiks">Rubik's Cube</button>   
+               </fieldset>
+          </div>
+
+          <div class="particle-container">
+               <fieldset>
+                    <legend>Select Particle Effect - Toggle On/Off</legend>
+                          <button class="select-btn" id="instances_btn" data="instances">Flying Meteor</button>
+                         <button class="select-btn" id="particles_btn" data="particles">Bigbang Theory</button>
+                         <button class="select-btn " id="paper_btn" data="paper-plane">Paper Plane</button>
+                         <button class="select-btn " id="spark_btn" data="spark">Particles Spark</button>
+               </fieldset>
           </div>
           
           <div class="waveform-container">
                <fieldset>
-                    <legend>Select Visualizer</legend>
-                    <button class="select-btn active-visualizer" id="sphere_btn" data="sphere">Ring Planet</button>
-                    <button class="select-btn" id="cube_btn" data="cube">Cube Dance</button>
-                    <button class="select-btn" id="plane_btn" data="plane">Net Shines</button>
+                    <legend>Select Visualizer - Toggle On/Off</legend>
+                    <button class="select-btn active-visualizer" id="sphere_btn" data="sphere">Ring Planets</button>
+                    <button class="select-btn" id="cube_btn" data="cube">Cube Dancing</button>
+                    <button class="select-btn" id="plane_btn" data="plane">Net Shining</button>
                     <button class="select-btn" id="cylinder_btn" data="cylinder"> Pillars Shuffle</button>
                
                     <button class="select-btn" id="glsl_btn" data="glsl">Terrain Map</button>
                     <button class="select-btn" id="glass_btn" data="glass"> Glass Plasma</button>
-                    <button class="select-btn" id="instances_btn" data="instances">Flying Meteor</button>
-                    <button class="select-btn" id="particles_btn" data="particles">Bigbang Theory</button>
+                   
                     <button class="select-btn" id="balls_btn" data="balls">Marbles Shot</button>
                     <button class="select-btn" id="lights_btn" data="lights">Marble Shine</button>
                     <button class="select-btn" id="warp_btn" data="warp">Warp Lights</button>
                     <button class="select-btn" id="water_btn" data="warp">Water Painting</button>
                     <button class="select-btn" id="liquid_btn" data="liquid">Liquid Cube</button>
                     <button class="select-btn" id="line-sphere_btn" data="line-sphere">Line Sphere</button>
-                    <button class="select-btn fly_btn" id="stop_btn" data="stop">Stop Visualizer</button>
-                    <button class="select-btn fly_btn" id="reset_btn" data="reset">Reset Visualizer</button>
+                    
+                    
                </fieldset>
           </div>
-
+          <div class="control-container">
+               <fieldset>
+                    <legend>Select Camera Control</legend>
+                    <button class="bg_btn fly_btn" id="bg_fly">Camera Move 1</button>
+                    <button class="bg_btn fly_btn" id="bg_fly2"> Camera Move 2</button>   
+                    <button class="bg_btn fly_btn" id="bg_fly2"> Camera Move 3</button>   
+                    <button class="select-btn fly_btn" id="reset_btn" data="reset">Reset Visualizer</button> 
+               </fieldset>        
+           </div>
           <div class="music-container">  
                <div class="control-buttons">
                     <button class="btn"  id="stopBtn"><i class="fas fa-stop"></i></button>
@@ -113,43 +136,37 @@
                <p>WONDROUS EAST wolfkang</p>
           </div>                 
      </div> 
-
-     <button id="modal_btn" value="off">Info?</button>    
+     <button id="modal_btn" value="off">Info ?</button>    
      <div class="modal" id="info_modal">          
           <h3><span id="close">&times;</span></h3>
           <div class="modal-header">
                <h2>How To Create 3D Music Video</h2>     
           </div>
           <div class="modal-body">
-               <p>Click Choose file to upload music</p>
-               <p>Select background button </p>
-               <p>Click Play to start music</p>
-               <p>Use keyboards to Fly Controls navigation</p>                    
-               <p>W A S D move, R up, F down, Q E roll, up/down pitch, left/right yaw</p>
-
-               <p>Or select programmed camera movement(Camera 1, 2). 
-               <p>Click Open Controls to control object settings</p>
+               <p>1. Click "Music File Upload" Choose music</p>
+               <p>2. Select Background </p>
+               <p>3. Select Center Effect </p>
+               <p>4. Select Particle Effect Visualizer </p>
+               <p>5. Select Visualizer Effect(Muliiple selection might slow down performance</p>
+               <p>6. Click Play to start music and Visualizer</p>
+               <p>Use keyboards to Fly Controls navigation                    
+               (W A S D move, R up, F down, Q E roll, up/down pitch, left/right yaw).
+               Or select programmed camera movement. </p>
+               <p>Click Open Controls when GUI is available</p>
                <p>Watch enjoy 3D Music Visualization</p>
-               <h4>Yes! You can make your own music video!  Make one of kind your own music video. </h4>
-
-               <p>Record Button will start recording, Click 
-                     Record Start when it is ready</p>
-               <p>Clink Stop Record when it is done. Recorded mv file will be downloaded </p>
-               <p>Recorded webm file will be downloaded </p>
-               <p>This is a test version 2.0 More to come...</p> 
+               <h4>Yes you can make your own music video!  Make one of kind your own music video.</h4>
+               <p>Click Start Record when it is ready.
+               Click Stop Record when it is done. You may begin record before start play. </p>
+               <p>Recorded webm file will be downloaded to your computer.</p>
+               <p>WARNING: Some visualizer or too many select of visualizer may cause slow down your device. Use Reset Button to clear.</p> 
           </div>
+
           <div class="modal-footer">
-              <h4>truckDriverDev <image id="wolf" src="./assets/textures/wolfkangicon.jpg">Wolfkang Lim</image> </h4> 
-              
-               <p>e-mail: hungrywolfkang@gmail.com</p>                 
-               
-                   <p>  soundcloud:  https://soundcloud.com/user-160571741</p>
-                   <p>Github:  https://github.com/wolfkanglim</p>
-                   <p>CodePen:  https://codepen.io/wolfkang</p>
-                   <p>facebook:  https://www.facebook.com/, hungrywolfkang/  </p>   
-                   <p>YouTube:  https://www.youtube.com/channel/UCsoR1FPL-sM05wd4jb8TvGg/videos </p>   
-</p>
-                  
+              <h4>truckDriverDev  Wolfkang Lim     e-mail hungrywolfkang@gmail.com</h4> 
+                   <p>  soundcloud  https://soundcloud.com/user-160571741, 
+                    Github  https://github.com/wolfkanglim, 
+                    CodePen  https://codepen.io/wolfkang, 
+                    facebook  https://www.facebook.com/, hungrywolfkang/  </p>                     
                <p></p>
           </div>              
      </div>
@@ -159,34 +176,38 @@
      <script src='https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.3.0/simplex-noise.min.js'></script>
 
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
-
      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-     
+     <script src="https://unpkg.com/default-passive-events"></script>
      <script type="module" src="./main.js"></script>
 </body>
 </html>
 
-<!-- 
-     Orpheus 3D Music Visualizer
-          Video recording 20230402 download webm file no play but convert mp4 file then play well. 
-          Add buttons for choose .js file
-          Slide-In info modal
-          background upload and apply
-          Add flyControl camera movements
-          Add waveform  wavesurfer.js
+<!-- ///// TO DOs /////
+     Orpheus 3D Music Visualizer         
+          Add buttons for choose .js file deselect function
+          background upload and apply select deselect function
+          reset button
+          AI camera movement automatic camera moves randomly.
+          Add flyControl camera movements auto/manual button
           Add Picture in Picture 2nd 3rd cameras
           Add Positional Audio
-          AI camera movement automatic camera moves randomly.
           Add audio wave icon button GIF
           GUI style
           WebGL GLSL visualizer
+          icosahedron visualizer
           simon music visualizer
           Loading audio file from URL
           Analyser Frequency Effects bass tre pitch average 
           video file WEBM, make it to MP4 
-     Beatrice 3D Audio Visualizer
-      
 
+          
+          Done
+          Add waveform  wavesurfer.js
+          Slide-In info modal
+           Video recording 20230402 download webm file no play but convert mp4 file then play well. 
+
+     More To Do///////////     
+     Beatrice 3D Audio Visualizer
      Music Video
           Positional Audio
           Effect volume control by the camera movements
