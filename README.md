@@ -46,6 +46,23 @@ each player(or instruments)
 (ex:violin volume up when camera goes to near)  
 Wandering around in the 3D world, every place has different music and play
 
-
 https://user-images.githubusercontent.com/74490365/229824900-2369091d-d583-467a-9f8e-2ad35aeb093b.mp4
 
+
+## References and Research
+AutoTron https://codepen.io/iondrimba/pen/jYmqKO
+Ivan Vedenin https://github.com/l1ve4code/3d-music-visualizer
+Rubik's Cube Three.js https://codepen.io/dilums/pen/ExVQmNB
+THREE.js examples 
+https://threejs.org/examples/?q=lines#webgl_lines_sphere
+https://threejs.org/examples/?q=attributes#webgl_buffergeometry_custom_attributes_particles
+https://threejs.org/examples/?q=attributes#webgl_custom_attributes_points
+https://threejs.org/examples/#webgl_buffergeometry_instancing
+https://threejs.org/examples/#webgl_buffergeometry_instancing_billboards
+https://threejs.org/examples/#webgl_custom_attributes_points2
+
+# Tutorials
+GIS Developer https://www.youtube.com/@gisdeveloper
+Suboptimal Engineer https://www.youtube.com/@SuboptimalEng
+Wael Yasmina https://www.youtube.com/@WaelYasmina
+Flanniganable https://www.youtube.com/@flanniganable
