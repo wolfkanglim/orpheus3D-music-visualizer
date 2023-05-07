@@ -40,7 +40,7 @@ export const liquidCubeVisualizer = function (scene, camera, renderer, dataArray
 
     // MATERIALS
     materials = generateMaterials();
-    current_material = 'liquid';
+    current_material = 'shiny';
 
     // MARCHING CUBES
     resolution = 280;
@@ -157,7 +157,7 @@ export const liquidCubeVisualizer = function (scene, camera, renderer, dataArray
     };
 
     effectController = {
-      material: 'liquid',
+      material: 'shiny',
       speed: 0.125,
       numBlobs: 180,
       resolution: 28,
@@ -169,7 +169,7 @@ export const liquidCubeVisualizer = function (scene, camera, renderer, dataArray
     };
 
     let h;
-    const gui = new GUI();
+    const gui = new GUI({width: 150});
 
     // material (type)
     h = gui.addFolder( 'Materials' );

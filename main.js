@@ -307,6 +307,28 @@ function initThree(){
           tl.to(camera.position, {z: 50, duration:6});      
      })
 
+     document.getElementById('bg_fly3').addEventListener('click', () => {
+          let tl = gsap.timeline({repeat: 2, repeatDelay: 3});
+          tl.to(camera.position, {z: 1000, duration:12});
+          tl.to(camera.position, {z: 10, duration:6});
+          tl.to(camera.rotation, {z: Math.PI * 2, duration: 8});
+          tl.to(camera.rotation, {z: Math.PI*0, duration: 8});
+          tl.to(camera.position, {z: 500, duration:4});
+          tl.to(camera.rotation, {y: Math.PI/4 , duration: 6});
+          tl.to(camera.position, {y: 0, duration:2});
+          tl.to(camera.rotation, {y: -Math.PI/4 , duration: 12});
+          tl.to(camera.rotation, {y: Math.PI * 0 , duration: 6});
+          tl.to(camera.position, {z: 1, duration:6}); 
+          tl.to(camera.position, {z: 800, duration:14}); 
+          tl.to(camera.rotation, {z: -Math.PI * 2, duration:6}); 
+          tl.to(camera.position, {z: 5, duration:8});  
+          tl.to(camera.position, {z: 350, duration:4});  
+          tl.to(camera.rotation, {y: -Math.PI/2, duration:6});  
+          tl.to(camera.rotation, {y: Math.PI/2, duration:8});  
+          tl.to(camera.rotation, {y: Math.PI * 0, duration:4});  
+          tl.to(camera.position, {z: 50, duration:6});      
+     })
+
      
      const clock = new THREE.Clock();
      function basicRenderFrame(){
