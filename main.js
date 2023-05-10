@@ -26,6 +26,8 @@ import { liquidCubeVisualizer, effectObj} from './liquidCubeVisualizer.js';
 import {lineSphereVisualizer, rafId, lineGroup} from './lineSphereVisualizer.js'; 
 import {paperPlaneVisualizer, paperPlanes} from './paperPlaneVisualizer.js';
 import {sparkVisualizer, sparkParticles} from './sparkVisualizer.js';
+import {oceanVisualizer, objGroup} from './oceanVisualizer.js';
+import {doughnutVisualizer, doughnuts} from './doughnutVisualizer.js';
 ///// variables /////
 
 const canvas = document.getElementById('canvas1');
@@ -495,6 +497,8 @@ const liquidBtn = document.getElementById('liquid_btn');
 const lineSphereBtn = document.getElementById('line-sphere_btn');
 const paperBtn = document.getElementById('paper_btn');
 const sparkBtn = document.getElementById('spark_btn');
+const oceanBtn = document.getElementById('ocean_btn');
+const doughnutBtn = document.getElementById('doughnut_btn');
 
 sphereBtn.addEventListener('click', visualizerSphere);
 cubeBtn.addEventListener('click', visualizerCube);
@@ -513,6 +517,8 @@ liquidBtn.addEventListener('click', visualizerLiquidCube);
 lineSphereBtn.addEventListener('click', visualizerLineSphere);
 paperBtn.addEventListener('click', visualizerPaperPlane);
 sparkBtn.addEventListener('click', visualizerSpark);
+oceanBtn.addEventListener('click', visualizerOcean);
+doughnutBtn.addEventListener('click', visualizerDoughnut);
 
 // add new visualizer
 //paperPlaneVisualizer(scene, camera, renderer)
@@ -702,7 +708,7 @@ function visualizerLineSphere(){
           lineSphereBtn.classList.add('active-bg');
      }
 }
-console.log(paperPlanes);
+
 let isPaperOn = false;
 function visualizerPaperPlane(){
      if(isPaperOn){
@@ -716,7 +722,6 @@ function visualizerPaperPlane(){
      }
 }
 
-console.log(paperPlanes);
 let isSparkOn = false;
 function visualizerSpark(){
      if(isSparkOn){
@@ -730,6 +735,31 @@ function visualizerSpark(){
      }
 }
 
+let isOceanOn = false;
+function visualizerOcean(){
+     if(isOceanOn){
+          objGroup.parent.remove(objGroup);
+          isOceanOn = false;
+          oceanBtn.classList.remove('active-bg');
+     } else {
+          isOceanOn = true;
+          oceanVisualizer(scene, camera, renderer, dataArray, analyser);
+          oceanBtn.classList.add('active-bg');
+     }
+}
+
+let isDoughnutOn = false;
+function visualizerDoughnut(){
+     if(isDoughnutOn){
+          doughnuts.parent.remove(doughnuts);
+          isDoughnutOn = false;
+          doughnutBtn.classList.remove('active-bg');
+     } else {
+          isDoughnutOn = true;
+          doughnutVisualizer(scene, camera, renderer, dataArray, analyser);
+          doughnutBtn.classList.add('active-bg');
+     }
+}
 // need to delete visualizer functions due to cpu memory usage.
 // slowed down it get repeated after selections
  

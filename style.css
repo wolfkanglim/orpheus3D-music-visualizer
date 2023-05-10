@@ -448,7 +448,16 @@ legend{
   background-size: cover;
   background-repeat:no-repeat;
 }    
- 
+#ocean_btn{
+  background-image: url('./assets/images/ocean.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}    
+#doughnut_btn{
+  background-image: url('./assets/images/doughnut.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}    
 
 .active-bg{
   border: 1.75px solid #87f187;
