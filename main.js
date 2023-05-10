@@ -1,6 +1,6 @@
 import * as THREE from './js/three.module.js';
-//import {OrbitControls} from './js/OrbitControls.js';
 import { FlyControls } from './js/FlyControls.js';
+
 import {fileUpload, audioControls} from './audioControls.js';
 import {spaceBlue, spaceRed, gloomy, pereaBeach, utopia, storm, sp, weltraum} from './backgrounds.js';
 
@@ -18,9 +18,6 @@ import { glassVisualizer, groupGlass} from './glassVisualizer.js';
 import {instancesVisualizer, instancedMeshGroup} from './instancesVisualizer.js';
 import {particlesVisualizer, particleGroup} from './particlesVisualizer.js';
 import { ballsVisualizer, ballGroup } from './ballsVisualizer.js';
-import { ballsLightVisualizer, ballLightGroup } from './ballsLightVisualizer.js';
-import { ballsWarpVisualizer, warpGroup } from './ballsWarpVisualizer.js';
-//import {marchVisualizer} from './marchVisualizer.js';
 import {waterPaintVisualizer, sphereObj} from './waterPaintVisualizer.js';
 import { liquidCubeVisualizer, effectObj} from './liquidCubeVisualizer.js';
 import {lineSphereVisualizer, rafId, lineGroup} from './lineSphereVisualizer.js'; 
@@ -32,10 +29,7 @@ import {doughnutVisualizer, doughnuts} from './doughnutVisualizer.js';
 
 const canvas = document.getElementById('canvas1');
 
-// canvas.width = window.innerWidth;
-// canvas.height = window.innerHeight;  
-
-const gui = new dat.GUI();
+const gui = new dat.GUI({width: 150});
 gui.domElement.id = 'gui';
 document.body.appendChild(gui.domElement);
 
@@ -44,8 +38,6 @@ let analyser;
 let dataArray = [];
 
 let scene, camera, renderer;
-//let orbitCamera;
-let intensity = 1;
 let flyCamera;
 let spotLight, spotLight2, ambientLight;
 
@@ -78,7 +70,7 @@ async function audioAnalyser(){
      analyser.fftSize = 512;
      let bufferLength = analyser.frequencyBinCount;
      dataArray = new Uint8Array(bufferLength);
-     //audioCtx.resume();
+
    //canvas2 bar visualizer
     const canvas2 = document.getElementById('canvas2');
      const ctx = canvas2.getContext('2d');
@@ -124,8 +116,7 @@ async function audioAnalyser(){
           requestAnimationFrame(drawBarVisualizer);
      }; 
 
-     drawBarVisualizer();
-     
+     drawBarVisualizer();     
      
      //audio controls
 
@@ -229,7 +220,6 @@ function initThree(){
      renderer.shadowMap.enabled = true;
 
     
-     //orbitCamera = new OrbitControls(camera, canvas);
      flyCamera = new FlyControls(camera, canvas);
      flyCamera.movementSpeed = 25;
      flyCamera.rollSpeed = Math.PI / 4;
@@ -346,8 +336,6 @@ function initThree(){
 
 const blueBtn = document.getElementById('bg_blue');
 const redBtn = document.getElementById('bg_red');
-const gloomyBtn = document.getElementById('bg_gloomy');
-const pereaBtn = document.getElementById('bg_perea');
 const weltraumBtn = document.getElementById('bg_weltraum');
 const spBtn = document.getElementById('bg_sp');
 
@@ -365,21 +353,7 @@ const bgObj = {
           bg: spaceRed,
           prev: 'spaceBlue',
           next: 'gloomy',
-     },
-     gloomy: {
-          button: gloomyBtn,
-          bg: gloomy,
-          prev: 'spaceRed',
-          next: 'pereaBeach',
-     },
-     
-      pereaBeach: {
-          button: pereaBtn,
-          bg: pereaBeach,
-          prev: 'gloomy',
-          next: 'storm',
-     }, 
-
+     },     
      weltraum: {
           button: weltraumBtn,
           bg: weltraum,
@@ -394,22 +368,18 @@ const bgObj = {
      },
 }
 
-const switchBg = (newBg) => {
-    
+const switchBg = (newBg) => {    
      if (selectedBg !== newBg) {
        bgObj[selectedBg].button.classList.remove('active-bg')
        selectedBg = newBg
        bgObj[selectedBg].button.classList.add('active-bg')
-       scene.background = bgObj[selectedBg].bg;  
-                  
+       scene.background = bgObj[selectedBg].bg;                    
      }
 }
 
 
 blueBtn.onclick = () => {switchBg('spaceBlue')}
 redBtn.onclick = () => {switchBg('spaceRed')}
-//gloomyBtn.onclick = () => {switchBg('gloomy')}
-//pereaBtn.onclick = () => {switchBg('pereaBeach')}
 weltraumBtn.onclick = () => {switchBg('weltraum')}
 spBtn.onclick = () => {switchBg('sp')}
 
@@ -423,13 +393,10 @@ const rubiksCubeBtn = document.getElementById('bg_rubiks');
 icosahedronBtn.addEventListener('click', visualizerIcosahedron);
 let isIcosahedronOn = false;
 function visualizerIcosahedron(){
-     if(isIcosahedronOn){
-         
+     if(isIcosahedronOn){         
           groupIcosahedron.parent.remove(groupIcosahedron);
           isIcosahedronOn = false;
-          icosahedronBtn.classList.remove('active-bg');
-        
-          
+          icosahedronBtn.classList.remove('active-bg');        
      } else {
           icosahedronVisualizer(scene, camera, renderer, dataArray, analyser);
           isIcosahedronOn = true;
@@ -490,8 +457,6 @@ const particlesBtn = document.getElementById('particles_btn');
 const instancesBtn = document.getElementById('instances_btn');
 const glassBtn = document.getElementById('glass_btn');
 const ballsBtn = document.getElementById('balls_btn');
-const lightsBtn = document.getElementById('lights_btn');
-const warpBtn = document.getElementById('warp_btn');
 const waterPaintBtn = document.getElementById('water_btn');
 const liquidBtn = document.getElementById('liquid_btn');
 const lineSphereBtn = document.getElementById('line-sphere_btn');
@@ -503,15 +468,12 @@ const doughnutBtn = document.getElementById('doughnut_btn');
 sphereBtn.addEventListener('click', visualizerSphere);
 cubeBtn.addEventListener('click', visualizerCube);
 planeBtn.addEventListener('click', visualizerPlane);
-//marchBtn.addEventListener('click', visualizerMarch);
 glslBtn.addEventListener('click', visualizerGlsl);
 cylinderBtn.addEventListener('click', visualizerCylinder);
 particlesBtn.addEventListener('click', visualizerParticles);
 instancesBtn.addEventListener('click', visualizerInstances);
 glassBtn.addEventListener('click', visualizerGlass);
 ballsBtn.addEventListener('click', visualizerBalls);
-lightsBtn.addEventListener('click', visualizerLights);
-warpBtn.addEventListener('click', visualizerWarp);
 waterPaintBtn.addEventListener('click', visualizerWaterPaint);
 liquidBtn.addEventListener('click', visualizerLiquidCube);
 lineSphereBtn.addEventListener('click', visualizerLineSphere);
@@ -519,11 +481,6 @@ paperBtn.addEventListener('click', visualizerPaperPlane);
 sparkBtn.addEventListener('click', visualizerSpark);
 oceanBtn.addEventListener('click', visualizerOcean);
 doughnutBtn.addEventListener('click', visualizerDoughnut);
-
-// add new visualizer
-//paperPlaneVisualizer(scene, camera, renderer)
-//sparkVisualizer(scene, camera, renderer);
-
 
 let isSphereOn = false;
 function visualizerSphere(){
@@ -595,8 +552,7 @@ function visualizerGlass(){
      if(isGlassOn){
           groupGlass.parent.remove(groupGlass);
           isGlassOn = false;
-          glassBtn.classList.remove('active-bg');
-          
+          glassBtn.classList.remove('active-bg');          
      } else {
           glassVisualizer(scene, camera, renderer, dataArray, analyser);
           isGlassOn = true;
@@ -643,32 +599,6 @@ function visualizerBalls(){
           ballsBtn.classList.add('active-bg');
      }
 }  
-
-let isBallLightGroupOn = false;
-function visualizerLights(){
-     if(isBallLightGroupOn){
-          ballLightGroup.parent.remove(ballLightGroup);
-          isBallLightGroupOn = false;
-          lightsBtn.classList.remove('active-bg');
-     } else {
-          isBallLightGroupOn = true;
-          ballsLightVisualizer(scene, camera, renderer, dataArray, analyser);
-          lightsBtn.classList.add('active-bg');
-     }
-}    
-  
-let isWarpOn = false;
-function visualizerWarp(){
-     if(isWarpOn){
-          warpGroup.parent.remove(warpGroup);
-          isWarpOn = false;
-          warpBtn.classList.remove('active-bg');
-     } else {
-          isWarpOn = true;
-          ballsWarpVisualizer(scene, camera, renderer, dataArray, analyser);
-          warpBtn.classList.add('active-bg');
-     }
-}   
 
 let isObjOn = false;
 function visualizerWaterPaint(){
@@ -760,8 +690,9 @@ function visualizerDoughnut(){
           doughnutBtn.classList.add('active-bg');
      }
 }
+
 // need to delete visualizer functions due to cpu memory usage.
-// slowed down it get repeated after selections
+// slowed down it get repeated after few selections
  
 
 ///// info modal /////
@@ -805,43 +736,6 @@ window.addEventListener('resize', function(){
      camera.updateProjectionMatrix();
      renderer.setSize(canvas.width, canvas.height);
 });
-
-
-/////stop function
-// use raf cancelRequestAnimation 
-/* 
-     const timeElem = document.querySelector("#time");
-     let requestId;
-     function animate(time) {
-          requestId = undefined;    
-          doStuff here...(time) animations
-          start();
-     }
-
-     function start() {
-          if (!requestId) {
-               requestId = window.requestAnimationFrame(animate);
-          }
-     }
-
-     function stop() {
-          if (requestId) {
-               window.cancelAnimationFrame(requestId);
-               requestId = undefined;
-          }
-     }
-
-      
-     //visualizer btn
-     document.querySelector("#start").addEventListener('click', function() {
-          start();
-     });
-
-     //stop btn = resetBtn
-     document.querySelector("#stop").addEventListener('click', function() {
-          stop();
-     });
-*/
 
 const resetBtn = document.getElementById('reset_btn');
 resetBtn.addEventListener('click', () => {
