@@ -23,7 +23,7 @@ import { liquidCubeVisualizer, effectObj} from './liquidCubeVisualizer.js';
 import {lineSphereVisualizer, rafId, lineGroup} from './lineSphereVisualizer.js'; 
 import {paperPlaneVisualizer, paperPlanes} from './paperPlaneVisualizer.js';
 import {sparkVisualizer, sparkParticles} from './sparkVisualizer.js';
-import {oceanVisualizer, objGroup} from './oceanVisualizer.js';
+import {wormholeVisualizer, tubes} from './wormholeVisualizer.js';
 import {doughnutVisualizer, doughnuts} from './doughnutVisualizer.js';
 ///// variables /////
 
@@ -462,7 +462,7 @@ const liquidBtn = document.getElementById('liquid_btn');
 const lineSphereBtn = document.getElementById('line-sphere_btn');
 const paperBtn = document.getElementById('paper_btn');
 const sparkBtn = document.getElementById('spark_btn');
-const oceanBtn = document.getElementById('ocean_btn');
+const wormholeBtn = document.getElementById('wormhole_btn');
 const doughnutBtn = document.getElementById('doughnut_btn');
 
 sphereBtn.addEventListener('click', visualizerSphere);
@@ -479,7 +479,7 @@ liquidBtn.addEventListener('click', visualizerLiquidCube);
 lineSphereBtn.addEventListener('click', visualizerLineSphere);
 paperBtn.addEventListener('click', visualizerPaperPlane);
 sparkBtn.addEventListener('click', visualizerSpark);
-oceanBtn.addEventListener('click', visualizerOcean);
+wormholeBtn.addEventListener('click', visualizerWormhole);
 doughnutBtn.addEventListener('click', visualizerDoughnut);
 
 let isSphereOn = false;
@@ -665,16 +665,16 @@ function visualizerSpark(){
      }
 }
 
-let isOceanOn = false;
-function visualizerOcean(){
-     if(isOceanOn){
-          objGroup.parent.remove(objGroup);
-          isOceanOn = false;
-          oceanBtn.classList.remove('active-bg');
+let isWormholeOn = false;
+function visualizerWormhole(){
+     if(isWormholeOn){
+          tubes.parent.remove(tubes);
+          isWormholeOn = false;
+          wormholeBtn.classList.remove('active-bg');
      } else {
-          isOceanOn = true;
-          oceanVisualizer(scene, camera, renderer, dataArray, analyser);
-          oceanBtn.classList.add('active-bg');
+          isWormholeOn = true;
+          wormholeVisualizer(scene, camera, renderer, dataArray, analyser);
+          wormholeBtn.classList.add('active-bg');
      }
 }
 
