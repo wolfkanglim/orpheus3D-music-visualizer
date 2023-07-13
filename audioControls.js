@@ -41,7 +41,7 @@ export function audioControls(){
      const fill = document.querySelector(".volume .bar .bar-fill");
           
      range.addEventListener("change", (e) => {
-          console.log("value", e.target.value);
+          //console.log("value", e.target.value);
           audioElement.volume = e.target.value / 100;
      });
 
