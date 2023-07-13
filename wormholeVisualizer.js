@@ -4,7 +4,7 @@ import { ImprovedNoise } from "./js/ImprovedNoise.js";
 ///// define variables /////
 export let tubes = [];
 let tubeVertices;
-let speed = 0.2;
+let speed = 0.04;
 
 
 export  function wormholeVisualizer(scene, camera, renderer, dataArray, analyser){
@@ -17,7 +17,7 @@ export  function wormholeVisualizer(scene, camera, renderer, dataArray, analyser
      let pos = new THREE.Vector3();
      let vec3 = new THREE.Vector3();
      const noiseFreq = 0.4;
-     let noiseAmp = 0.15;
+     const noiseAmp = 0.15;
      const color = new THREE.Color();
      const hueNoiseFreq = 0.015;
 
@@ -71,11 +71,11 @@ export  function wormholeVisualizer(scene, camera, renderer, dataArray, analyser
      requestAnimationFrame(animate);
      analyser.getByteFrequencyData(dataArray);
     
-     speed = dataArray[24] * 0.01; 
+     speed = dataArray[24] * 0.01 + 0.001; 
         
      tubes.forEach((tube) => tube.update());
-     camera.position.x = Math.cos(time * 0.0001) * 4.5;
-     camera.position.y = Math.sin(time * 0.0001) * 3;
+     camera.position.x = Math.cos(time * 0.001) * 4.5;
+     camera.position.y = Math.sin(time * 0.0005) * 3;
      renderer.render(scene, camera);
    } 
    
