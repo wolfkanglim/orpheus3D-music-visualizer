@@ -13,7 +13,7 @@ export const doughnutVisualizer = function(scene, camera, renderer, dataArray, a
      const textureLoader = new THREE.TextureLoader();
 
      uniforms = {
-          'fogDensity': { value: 0.0025 },
+          'fogDensity': { value: 0.00025 },
           'fogColor': { value: new THREE.Vector3( 0, 0, 0 ) },
           'time': { value: 1.0 },
           'uvScale': { value: new THREE.Vector2( 3.0, 1.0 ) },
@@ -97,6 +97,8 @@ export const doughnutVisualizer = function(scene, camera, renderer, dataArray, a
      animate();
 
      function render() {
+          mesh.rotation.z += 0.001;
+          mesh.rotation.y -= 0.0025;
           const delta = clock.getDelta();
           analyser.getByteFrequencyData(dataArray);
           let frequency = dataArray[100];               
@@ -105,9 +107,9 @@ export const doughnutVisualizer = function(scene, camera, renderer, dataArray, a
           let frequency4 = dataArray[180];               
                
           uniforms[ 'time' ].value += 0.6 * delta + 0.0052 * frequency;
-          mesh.rotation.y -= 0.025 * delta * frequency2 * 0.0125;
-          mesh.rotation.x += 0.05 * delta * frequency4 * 0.02;
-          mesh.rotation.z -= 0.025 * delta * frequency3 * 0.125; 
+          mesh.rotation.y -= 0.25 * delta * frequency4 * 0.15;
+          mesh.rotation.x += 0.025 * delta * frequency2 * 0.12;
+          mesh.rotation.z -= 0.35 * delta * frequency3 * 0.25; 
          renderer.render(scene, camera);      
      }
 }
